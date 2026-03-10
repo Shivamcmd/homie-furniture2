@@ -1,0 +1,44 @@
+{
+  "users": [
+    {
+      "id": "9857",
+      "phone": "7701849064"
+    },
+    {
+      "id": "5c93",
+      "name": "Shivam Sharma",
+      "email": "shivamsharmaofficial09@gmail.com",
+      "password": "123123"
+    },
+    {
+      "id": "e652",
+      "name": "Ram Sharma",
+      "email": "ramsharma7454@gmail.com",
+      "password": "123123"
+    },
+    {
+      "id": "5b4a",
+      "name": "shivam ",
+      "email": "sundram",
+      "password": "456456"
+    },
+    {
+      "id": "5439",
+      "name": "sunita",
+      "email": "sunitanasa@gmail.com",
+      "password": "421"
+    },
+    {
+      "id": "2c30",
+      "name": "aaa",
+      "email": "a",
+      "password": "a"
+    },
+    {
+      "id": "a00a",
+      "name": "jkdsfkg",
+      "email": "assd",
+      "password": "123"
+    }
+  ]
+}
