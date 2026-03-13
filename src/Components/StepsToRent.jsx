@@ -4,88 +4,94 @@ const steps = [
   {
     id: 1,
     title: "Browse & Select",
-    description:
-      "Pick from 1000+ premium walnut items for every room.",
-    icon: <Search size={32} className="text-blue-600" />,
+    description: "Pick from 1000+ premium furniture pieces.",
+    icon: <Search size={22} className="text-blue-600" />,
     bg: "bg-blue-50",
   },
   {
     id: 2,
     title: "KYC & Security",
-    description:
-      "Complete quick KYC and pay a minimal refundable deposit.",
-    icon: <ShieldCheck size={32} className="text-purple-600" />,
+    description: "Quick KYC with a small refundable deposit.",
+    icon: <ShieldCheck size={22} className="text-purple-600" />,
     bg: "bg-purple-50",
   },
   {
     id: 3,
     title: "Free Delivery",
-    description:
-      "Get free delivery and professional assembly within 48 hours.",
-    icon: <Truck size={32} className="text-orange-600" />,
+    description: "Delivery & assembly within 48 hours.",
+    icon: <Truck size={22} className="text-orange-600" />,
     bg: "bg-orange-50",
   },
   {
     id: 4,
     title: "Enjoy & Swap",
-    description:
-      "Live with it, love it, or swap it for something new after 6 months.",
-    icon: <RefreshCw size={32} className="text-green-600" />,
+    description: "Swap furniture anytime after 6 months.",
+    icon: <RefreshCw size={22} className="text-green-600" />,
     bg: "bg-green-50",
   },
 ];
 
 const HowItWorksSection = () => {
   return (
-<section className="py-14 px-4 md:py-24 md:px-16 bg-[#8b5e3b]">
+<section className="py-10 md:py-14 px-4 md:px-10 bg-[#8b5e3b]">
+
   {/* Heading */}
-  <div className="text-center mb-12 md:mb-20">
-    <h2 className="text-2xl md:text-4xl font-bold text-white mb-3 md:mb-4">
-      4 Easy Steps to Your Dream Home
+
+  <div className="text-center mb-10">
+
+    <h2 className="text-xl md:text-3xl font-bold text-white">
+      How Homie Works
     </h2>
-    <p className="text-sm md:text-base text-white max-w-xl md:max-w-2xl mx-auto">
-      Renting with Homie is designed to be as comfortable as the furniture we provide.
+
+    <p className="text-xs md:text-sm text-white/80 mt-2">
+      Renting furniture is simple in just four steps
     </p>
+
   </div>
 
-  {/* Steps Grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 relative">
+  {/* Steps */}
+
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-6xl mx-auto">
+
     {steps.map((step) => (
+
       <div
         key={step.id}
-        className="text-center group"
+        className="relative bg-white rounded-xl p-4 md:p-5 text-center shadow-sm group transition hover:shadow-md hover:-translate-y-1"
       >
-        {/* Icon Box */}
-        <div
-          className={`w-16 h-16 md:w-24 md:h-24 mx-auto flex items-center justify-center 
-          rounded-2xl md:rounded-3xl shadow-sm ${step.bg} relative
-          transition-all duration-300 ease-out
-          group-hover:-translate-y-3 group-hover:shadow-md`}
-        >
-          {/* Smaller icon for mobile */}
-          <div className="scale-75 md:scale-100">
-            {step.icon}
-          </div>
 
-          {/* Step Number Badge */}
-          <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 
-          w-6 h-6 md:w-8 md:h-8 flex items-center justify-center 
-          bg-white shadow rounded-full 
-          text-xs md:text-lg font-semibold text-[#4B2E2B]">
-            {step.id}
-          </div>
+        {/* Step Number */}
+
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-7 h-7 bg-[#bf6f32] text-white text-xs font-semibold rounded-full flex items-center justify-center shadow">
+          {step.id}
         </div>
 
-        {/* Text Content */}
-        <h3 className="mt-5 md:mt-8 text-base md:text-xl font-semibold text-white">
+        {/* Icon */}
+
+        <div
+          className={`w-12 h-12 mx-auto flex items-center justify-center rounded-lg mt-3 ${step.bg}`}
+        >
+          {step.icon}
+        </div>
+
+        {/* Title */}
+
+        <h3 className="mt-3 text-sm md:text-base font-semibold text-gray-800">
           {step.title}
         </h3>
-        <p className="mt-2 md:mt-3 text-xs md:text-sm text-white leading-relaxed px-2 md:px-0">
+
+        {/* Description */}
+
+        <p className="text-[11px] md:text-xs text-gray-500 mt-1 leading-snug">
           {step.description}
         </p>
+
       </div>
+
     ))}
+
   </div>
+
 </section>
   );
 };

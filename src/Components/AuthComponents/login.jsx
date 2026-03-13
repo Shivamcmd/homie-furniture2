@@ -3,6 +3,8 @@ import { ShieldCheck, Truck, Sparkles, ArrowRight } from "lucide-react";
 import homieLogo from "../../Assets/Icons/favicon.png";
 import toast from "react-hot-toast";
 
+import loginimage from "../../Assets/login/fg.jpg"
+
 const theme = "rgb(191,111,50)";
 
 const Login = ({ switchToRegister, onLoginSuccess }) => {
@@ -49,10 +51,10 @@ return (
 
     {/* LEFT IMAGE */}
     <div className="hidden md:block md:w-1/2">
-      <img
-        src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6"
-        className="w-full h-full object-cover"
-      />
+     <img
+  src={loginimage}
+  className="w-full h-full object-cover"
+/>
     </div>
 
     {/* FORM */}
@@ -81,8 +83,8 @@ return (
           </span>
         </div>
 
-        <h2 className="text-xl font-semibold mb-5">
-          <span style={{color:theme}}>Welcome back</span>
+        <h2 className="text-xl font-bold mb-5">
+          <span style={{color:theme}}>👋 Welcome back</span>
           <br/>
           Sign in to continue
         </h2>

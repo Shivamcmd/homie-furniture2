@@ -157,26 +157,26 @@ import tvunit18 from "../../Assets/products/tvunit/images (8).jpg";
 import tvunit19 from "../../Assets/products/tvunit/images (9).jpg";
 import tvunit20 from "../../Assets/products/tvunit/images.jpg";
 
-// import wardrobe1 from "../../Assets/products/wardrobe/download (1).jpg";
-// import wardrobe2 from "../../Assets/products/wardrobe/download (2).jpg";
-// import wardrobe3 from "../../Assets/products/wardrobe/download (3).jpg";
-// import wardrobe4 from "../../Assets/products/wardrobe/download (4).jpg";
-// import wardrobe5 from "../../Assets/products/wardrobe/download (5).jpg";
-// import wardrobe6 from "../../Assets/products/wardrobe/download (6).jpg";
-// import wardrobe7 from "../../Assets/products/wardrobe/download (7).jpg";
-// import wardrobe8 from "../../Assets/products/wardrobe/download (8).jpg";
-// import wardrobe9 from "../../Assets/products/wardrobe/download.jpg";
-// import wardrobe10 from "../../Assets/products/wardrobe/images (1).jpg";
-// import wardrobe11 from "../../Assets/products/wardrobe/images (10).jpg";
-// import wardrobe12 from "../../Assets/products/wardrobe/images (2).jpg";
-// import wardrobe13 from "../../Assets/products/wardrobe/images (3).jpg";
-// import wardrobe14 from "../../Assets/products/wardrobe/images (4).jpg";
-// import wardrobe15 from "../../Assets/products/wardrobe/images (5).jpg";
-// import wardrobe16 from "../../Assets/products/wardrobe/images (6).jpg";
-// import wardrobe17 from "../../Assets/products/wardrobe/images (7).jpg";
-// import wardrobe18 from "../../Assets/products/wardrobe/images (8).jpg";
-// import wardrobe19 from "../../Assets/products/wardrobe/images (9).jpg";
-// import wardrobe20 from "../../Assets/products/wardrobe/images.jpg";
+import wardrobe1 from "../../Assets/products/wardrobe/1.avif";
+import wardrobe2 from "../../Assets/products/wardrobe/10051.webp";
+import wardrobe3 from "../../Assets/products/wardrobe/1_212da052-7717-4b17-b016-a9334e7220d9.webp";
+import wardrobe4 from "../../Assets/products/wardrobe/212.803.11-2.webp";
+import wardrobe5 from "../../Assets/products/wardrobe/81zKZKbAyIL.jpg";
+import wardrobe6 from "../../Assets/products/wardrobe/Amer_Solid_Sheesham_Wood_Wardrobe_Set_Walnut_Finish.webp";
+import wardrobe7 from "../../Assets/products/wardrobe/bedroom-wooden-wardrobe.jpg";
+import wardrobe8 from "../../Assets/products/wardrobe/lklkkl.jpg";
+import wardrobe9 from "../../Assets/products/wardrobe/mklmm.jpg";
+import wardrobe10 from "../../Assets/products/wardrobe/xksnc.jpg";
+import wardrobe11 from "../../Assets/products/wardrobe/yhuh.jpg";
+import wardrobe12 from "../../Assets/products/wardrobe/kibo-2-door-wardrobe-in-lyon-walnut-finish-with-drawer-kibo-2-door-wardrobe-in-lyon-walnut-finish-wi-3yreyg.webp";
+import wardrobe13 from "../../Assets/products/wardrobe/MOD-7182-WAL_8.webp";
+import wardrobe14 from "../../Assets/products/wardrobe/rectangular-shape-double-door-wooden-wardrobe-dark-brown-2226329497-azk2dto3.avif";
+import wardrobe15 from "../../Assets/products/wardrobe/ThUPs_NceA-Andrie-4-door2.avif";
+import wardrobe16 from "../../Assets/products/wardrobe/lklkkl.jpg";
+import wardrobe17 from "../../Assets/products/wardrobe/212.803.11-2.webp";
+import wardrobe18 from "../../Assets/products/wardrobe/81iTuaFJdgL.webp";
+import wardrobe19 from "../../Assets/products/wardrobe/81zKZKbAyIL.jpg";
+import wardrobe20 from "../../Assets/products/wardrobe/uihji.webp";
 
 import hammock1 from "../../Assets/products/hammock/download (1).jpg";
 import hammock2 from "../../Assets/products/hammock/download (10).jpg";
@@ -199,8 +199,50 @@ import hammock18 from "../../Assets/products/hammock/download (10).jpg";
 import hammock19 from "../../Assets/products/hammock/images (4).jpg";
 import hammock20 from "../../Assets/products/hammock/hommockk.jpg";
 
+import officetable1 from "../../Assets/products/officetables/1_182a870a-a9b1-429b-b3ae-f30706145495.webp";
+import officetable2 from "../../Assets/products/officetables/61cQhqxLVQL.webp";
+import officetable3 from "../../Assets/products/officetables/71qW5zTUIOL.webp";
+import officetable4 from "../../Assets/products/officetables/asigyh.jpg";
+import officetable5 from "../../Assets/products/officetables/bnhui.jpg";
+import officetable6 from "../../Assets/products/officetables/dcdcd.jpg";
+import officetable7 from "../../Assets/products/officetables/ddf.jpg";
+import officetable8 from "../../Assets/products/officetables/dede.jpg";
+import officetable9 from "../../Assets/products/officetables/eddr.jpg";
+import officetable10 from "../../Assets/products/officetables/qased.jpg";
+import officetable11 from "../../Assets/products/officetables/right.jpg";
+import officetable12 from "../../Assets/products/officetables/righy.jpg";
+import officetable13 from "../../Assets/products/officetables/roggh.webp";
+import officetable14 from "../../Assets/products/officetables/rtuiju.webp";
+import officetable15 from "../../Assets/products/officetables/wasas.jpg";
+import officetable16 from "../../Assets/products/officetables/wased.jpg";
+import officetable17 from "../../Assets/products/officetables/wasgh.jpg";
+import officetable18 from "../../Assets/products/officetables/webb.jpg";
+import officetable19 from "../../Assets/products/officetables/wekib.jpg";
+import officetable20 from "../../Assets/products/officetables/wssd.jpg";
+
+import bookshelf1 from "../../Assets/products/bookshelf/1_96217612-5183-40c7-9bd5-3c048b087e3a.webp";
+import bookshelf2 from "../../Assets/products/bookshelf/3211f211403533768f570482a04132fa.webp";
+import bookshelf3 from "../../Assets/products/bookshelf/360_F_65707740_9dy3kO5vd8NsuoN1vAmVuTHr82DvCUvB.webp";
+import bookshelf4 from "../../Assets/products/bookshelf/61Kv9Jz2cqL.webp";
+import bookshelf5 from "../../Assets/products/bookshelf/71-bookshelf-4-tier-s-shaped-bookcase-freestanding-display-shelves-209399.webp";
+import bookshelf6 from "../../Assets/products/bookshelf/717wq1eLsnL.webp";
+import bookshelf7 from "../../Assets/products/bookshelf/71bU11ixVaL.webp";
+import bookshelf8 from "../../Assets/products/bookshelf/71n5WjQfO8L.webp";
+import bookshelf9 from "../../Assets/products/bookshelf/71pr1F0VWRL.webp";
+import bookshelf10 from "../../Assets/products/bookshelf/71VtJ8qHe4L.webp";
+import bookshelf11 from "../../Assets/products/bookshelf/81M73DpjQOL.webp";
+import bookshelf12 from "../../Assets/products/bookshelf/81zuG3wtctL.webp";
+import bookshelf13 from "../../Assets/products/bookshelf/71n5WjQfO8L.webp";
+import bookshelf14 from "../../Assets/products/bookshelf/baggebo-bookcase-white__1094764_pe863605_s5.webp";
+import bookshelf15 from "../../Assets/products/bookshelf/bs20202304_12.webp";
+import bookshelf16 from "../../Assets/products/bookshelf/buy-bookshelf-terra-book-rack-bookshelf-or-bookstand-cabinet-unit-by-objectry-on-ikiru-online-store-1.webp";
+import bookshelf17 from "../../Assets/products/bookshelf/E48ghrl1n9YSZIGeaWsaTxzq57Iajbe4HolTNnYdsio.webp";
+import bookshelf18 from "../../Assets/products/bookshelf/fd2c07c76dba8e63dc492fd63504310c.webp";
+import bookshelf19 from "../../Assets/products/bookshelf/s6RzHD64QYjq1Ffr_Z61lrGf3TmLd_C2bqN0TVBfW84.webp";
+import bookshelf20 from "../../Assets/products/bookshelf/steel-bookshelf-storage-shelve-for-books-storage-organizer-original-imag2pn8a6bwnam5.webp";
+
 const allProducts = [
-  { id: 1, name: "Miller Engineered Wood Non Storage Queen Bed", category: "Beds", price: 90, image: bed1 },
+  { id: 1, name: "Miller Engineered Wood Non Storage Queen Bed", category: "Beds", price: 1, image: bed1 },
   { id: 2, name: "Rian Engineered Wood Non Storage Single Bed (Sonoma Oak)", category: "Beds", price: 200, image: bed2 },
   { id: 3, name: "Taurus Engineered Wood King Size Bed With Storage", category: "Beds", price: 200, image: bed3 },
   { id: 4, name: "Aurora Low Height Single Bed (Solid Wood)", category: "Beds", price: 300, image: bed4 },
@@ -350,26 +392,26 @@ const allProducts = [
 { id: 139, name: "Modern Oak TV Cabinet", category: "TV-Unit", price: 570 ,image: tvunit19 },
 { id: 140, name: "Luxury Media Console TV Unit", category: "TV-Unit", price: 990 ,image: tvunit20 },
 
-// { id: 141, name: "Classic 2 Door Wooden Wardrobe", category: "Wardrobe", price: 520, image: wardrobe1 },
-// { id: 142, name: "Modern Sliding Door Wardrobe", category: "Wardrobe", price: 780, image: wardrobe2 },
-// { id: 143, name: "Premium Mirror Finish Wardrobe", category: "Wardrobe", price: 950, image: wardrobe3 },
-// { id: 144, name: "Compact Single Door Wardrobe", category: "Wardrobe", price: 390, image: wardrobe4 },
-// { id: 145, name: "Luxury 3 Door Wardrobe", category: "Wardrobe", price: 1100, image: wardrobe5 },
-// { id: 146, name: "Matte Finish Storage Wardrobe", category: "Wardrobe", price: 640, image: wardrobe6 },
-// { id: 147, name: "Rustic Oak Wardrobe", category: "Wardrobe", price: 720, image: wardrobe7 },
-// { id: 148, name: "Minimalist White Wardrobe", category: "Wardrobe", price: 560, image: wardrobe8 },
-// { id: 149, name: "Smart Organizer Wardrobe", category: "Wardrobe", price: 830, image: wardrobe9 },
-// { id: 150, name: "Budget Compact Wardrobe", category: "Wardrobe", price: 310, image: wardrobe10 },
-// { id: 151, name: "Royal Carved Wooden Wardrobe", category: "Wardrobe", price: 1250, image: wardrobe11 },
-// { id: 152, name: "Premium Walnut Wardrobe", category: "Wardrobe", price: 980, image: wardrobe12 },
-// { id: 153, name: "Sliding Mirror Panel Wardrobe", category: "Wardrobe", price: 870, image: wardrobe13 },
-// { id: 154, name: "Space Saver Corner Wardrobe", category: "Wardrobe", price: 600, image: wardrobe14 },
-// { id: 155, name: "Signature Elite Wardrobe", category: "Wardrobe", price: 1400, image: wardrobe15 },
-// { id: 156, name: "Designer Glass Panel Wardrobe", category: "Wardrobe", price: 920, image: wardrobe16 },
-// { id: 157, name: "Industrial Style Metal Wardrobe", category: "Wardrobe", price: 690, image: wardrobe17 },
-// { id: 158, name: "Elegant Dual Tone Wardrobe", category: "Wardrobe", price: 760, image: wardrobe18 },
-// { id: 159, name: "Expandable Storage Wardrobe", category: "Wardrobe", price: 880, image: wardrobe19 },
-// { id: 160, name: "Luxury Walk-In Style Wardrobe", category: "Wardrobe", price: 1650, image: wardrobe20 },
+{ id: 141, name: "Classic 2 Door Wooden Wardrobe", category: "Wardrobe", price: 520, image: wardrobe1 },
+{ id: 142, name: "Modern Sliding Door Wardrobe", category: "Wardrobe", price: 780, image: wardrobe2 },
+{ id: 143, name: "Premium Mirror Finish Wardrobe", category: "Wardrobe", price: 950, image: wardrobe3 },
+{ id: 144, name: "Compact Single Door Wardrobe", category: "Wardrobe", price: 390, image: wardrobe4 },
+{ id: 145, name: "Luxury 3 Door Wardrobe", category: "Wardrobe", price: 1100, image: wardrobe5 },
+{ id: 146, name: "Matte Finish Storage Wardrobe", category: "Wardrobe", price: 640, image: wardrobe6 },
+{ id: 147, name: "Rustic Oak Wardrobe", category: "Wardrobe", price: 720, image: wardrobe7 },
+{ id: 148, name: "Minimalist White Wardrobe", category: "Wardrobe", price: 560, image: wardrobe8 },
+{ id: 149, name: "Smart Organizer Wardrobe", category: "Wardrobe", price: 830, image: wardrobe9 },
+{ id: 150, name: "Budget Compact Wardrobe", category: "Wardrobe", price: 310, image: wardrobe10 },
+{ id: 151, name: "Royal Carved Wooden Wardrobe", category: "Wardrobe", price: 1250, image: wardrobe11 },
+{ id: 152, name: "Premium Walnut Wardrobe", category: "Wardrobe", price: 980, image: wardrobe12 },
+{ id: 153, name: "Sliding Mirror Panel Wardrobe", category: "Wardrobe", price: 870, image: wardrobe13 },
+{ id: 154, name: "Space Saver Corner Wardrobe", category: "Wardrobe", price: 600, image: wardrobe14 },
+{ id: 155, name: "Signature Elite Wardrobe", category: "Wardrobe", price: 1400, image: wardrobe15 },
+{ id: 156, name: "Designer Glass Panel Wardrobe", category: "Wardrobe", price: 920, image: wardrobe16 },
+{ id: 157, name: "Industrial Style Metal Wardrobe", category: "Wardrobe", price: 690, image: wardrobe17 },
+{ id: 158, name: "Elegant Dual Tone Wardrobe", category: "Wardrobe", price: 760, image: wardrobe18 },
+{ id: 159, name: "Expandable Storage Wardrobe", category: "Wardrobe", price: 880, image: wardrobe19 },
+{ id: 160, name: "Luxury Walk-In Style Wardrobe", category: "Wardrobe", price: 1650, image: wardrobe20 },
 
 { id: 161, name: "Classic Cotton Rope Hammock", category: "Hammock", price: 220, image: hammock1 },
 { id: 162, name: "Portable Outdoor Camping Hammock", category: "Hammock", price: 340, image: hammock2 },
@@ -391,11 +433,93 @@ const allProducts = [
 { id: 178, name: "Compact Urban Hammock", category: "Hammock", price: 390, image: hammock18 },
 { id: 179, name: "Premium Double Layer Hammock", category: "Hammock", price: 680, image: hammock19 },
 { id: 180, name: "Luxury Resort Style Hammock", category: "Hammock", price: 1200, image: hammock20 },
+
+{ id: 181, name: "Modern Wooden Office Table", category: "Office Table", price: 450, image: officetable1 },
+{ id: 182, name: "Executive Office Desk", category: "Office Table", price: 680, image: officetable2 },
+{ id: 183, name: "Minimalist Workstation Desk", category: "Office Table", price: 520, image: officetable3 },
+{ id: 184, name: "Compact Study Office Table", category: "Office Table", price: 390, image: officetable4 },
+{ id: 185, name: "Industrial Metal Frame Desk", category: "Office Table", price: 610, image: officetable5 },
+{ id: 186, name: "Premium Executive Work Desk", category: "Office Table", price: 950, image: officetable6 },
+{ id: 187, name: "Foldable Laptop Office Table", category: "Office Table", price: 320, image: officetable7 },
+{ id: 188, name: "L-Shaped Corner Office Desk", category: "Office Table", price: 780, image: officetable8 },
+{ id: 189, name: "Contemporary Glass Top Desk", category: "Office Table", price: 720, image: officetable9 },
+{ id: 190, name: "Woodgrain Study Work Desk", category: "Office Table", price: 470, image: officetable10 },
+{ id: 191, name: "Professional Workspace Table", category: "Office Table", price: 640, image: officetable11 },
+{ id: 192, name: "Compact Home Office Desk", category: "Office Table", price: 410, image: officetable12 },
+{ id: 193, name: "Dual Drawer Office Table", category: "Office Table", price: 560, image: officetable13 },
+{ id: 194, name: "Premium Walnut Office Desk", category: "Office Table", price: 880, image: officetable14 },
+{ id: 195, name: "Space Saving Office Work Desk", category: "Office Table", price: 360, image: officetable15 },
+{ id: 196, name: "Classic Wooden Study Desk", category: "Office Table", price: 490, image: officetable16 },
+{ id: 197, name: "Ergonomic Workspace Desk", category: "Office Table", price: 630, image: officetable17 },
+{ id: 198, name: "Luxury Executive Office Table", category: "Office Table", price: 1100, image: officetable18 },
+{ id: 199, name: "Minimal Nordic Style Desk", category: "Office Table", price: 540, image: officetable19 },
+{ id: 200, name: "Professional Manager Desk", category: "Office Table", price: 970, image: officetable20 },
+
+{ id: 201, name: "Modern Wooden Bookshelf", category: "Bookshelf", price: 420, image: bookshelf1 },
+{ id: 202, name: "Minimalist 4 Tier Bookshelf", category: "Bookshelf", price: 350, image: bookshelf2 },
+{ id: 203, name: "Industrial Metal Bookshelf", category: "Bookshelf", price: 520, image: bookshelf3 },
+{ id: 204, name: "Classic Wooden Book Rack", category: "Bookshelf", price: 470, image: bookshelf4 },
+{ id: 205, name: "Compact Corner Bookshelf", category: "Bookshelf", price: 310, image: bookshelf5 },
+{ id: 206, name: "Modern Open Storage Bookshelf", category: "Bookshelf", price: 540, image: bookshelf6 },
+{ id: 207, name: "Nordic Style Wooden Bookshelf", category: "Bookshelf", price: 630, image: bookshelf7 },
+{ id: 208, name: "5 Tier Display Bookshelf", category: "Bookshelf", price: 580, image: bookshelf8 },
+{ id: 209, name: "Rustic Style Book Storage Rack", category: "Bookshelf", price: 490, image: bookshelf9 },
+{ id: 210, name: "Space Saving Vertical Bookshelf", category: "Bookshelf", price: 360, image: bookshelf10 },
+{ id: 211, name: "Premium Walnut Bookshelf", category: "Bookshelf", price: 720, image: bookshelf11 },
+{ id: 212, name: "Modern Ladder Style Bookshelf", category: "Bookshelf", price: 410, image: bookshelf12 },
+{ id: 213, name: "Minimal Cube Storage Bookshelf", category: "Bookshelf", price: 380, image: bookshelf13 },
+{ id: 214, name: "Luxury Designer Bookshelf", category: "Bookshelf", price: 820, image: bookshelf14 },
+{ id: 215, name: "Compact Study Room Bookshelf", category: "Bookshelf", price: 340, image: bookshelf15 },
+{ id: 216, name: "Multi Tier Wooden Book Rack", category: "Bookshelf", price: 460, image: bookshelf16 },
+{ id: 217, name: "Industrial Loft Bookshelf", category: "Bookshelf", price: 590, image: bookshelf17 },
+{ id: 218, name: "Premium Library Style Bookshelf", category: "Bookshelf", price: 910, image: bookshelf18 },
+{ id: 219, name: "Decorative Open Shelf Rack", category: "Bookshelf", price: 430, image: bookshelf19 },
+{ id: 220, name: "Elegant Home Library Bookshelf", category: "Bookshelf", price: 760, image: bookshelf20 },
 ]
+const MobileFeatures = () => {
+  return (
+    <div className="md:hidden col-span-2 my-4">
 
+      <h3 className="text-center text-sm font-bold text-[#bf6f32] mb-3">
+        WHY CHOOSE HOMIE
+      </h3>
 
-// ProductGrid.jsx
-const ProductGrid = ({ category, priceFilter }) => {
+      <div className="grid grid-cols-2 gap-3">
+
+        <div className="border border-red-400 rounded-xl p-3 flex items-center gap-2 bg-red-50">
+          <span className="text-xl">🚚</span>
+          <p className="text-xs font-medium text-red-500">
+            Free Relocation
+          </p>
+        </div>
+
+        <div className="border border-red-400 rounded-xl p-3 flex items-center gap-2 bg-red-50">
+          <span className="text-xl">🛠</span>
+          <p className="text-xs font-medium text-red-500">
+            Free Repair & Maintenance
+          </p>
+        </div>
+
+        <div className="border border-red-400 rounded-xl p-3 flex items-center gap-2 bg-red-50">
+          <span className="text-xl">💰</span>
+          <p className="text-xs font-medium text-red-500">
+            Postpaid Rentals
+          </p>
+        </div>
+
+        <div className="border border-red-400 rounded-xl p-3 flex items-center gap-2 bg-red-50">
+          <span className="text-xl">🏠</span>
+          <p className="text-xs font-medium text-red-500">
+            Upgrade with Ease
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  );
+};
+const ProductGrid = ({ category, priceFilter = [], ratingFilter }) => {
 
   const { addToCart } = useCart();
   const navigate = useNavigate();
@@ -406,7 +530,9 @@ const ProductGrid = ({ category, priceFilter }) => {
 
   const [ratings] = useState(() =>
     allProducts.reduce((acc, product) => {
-      acc[product.id] = (Math.random() * (5 - 3.5) + 3.5).toFixed(1);
+      acc[product.id] = Number(
+        (Math.random() * (5 - 3.5) + 3.5).toFixed(1)
+      );
       return acc;
     }, {})
   );
@@ -445,178 +571,132 @@ const ProductGrid = ({ category, priceFilter }) => {
       ? itemCategoryNormalized === normalizedCategory
       : true;
 
-    const priceMatch = priceFilter
-      ? item.price >= priceFilter[0] &&
-        item.price <= priceFilter[1]
-      : true;
+    const priceMatch =
+      priceFilter.length === 0 ||
+      priceFilter.some(
+        ([min, max]) =>
+          item.price >= min && item.price <= max
+      );
 
-    return categoryMatch && priceMatch;
+    const ratingMatch =
+      !ratingFilter ||
+      ratings[item.id] >= ratingFilter;
+
+    return categoryMatch && priceMatch && ratingMatch;
 
   });
 
- return (
-  <>
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-[1200px] mx-auto items-stretch">
+  return (
+    <>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6 max-w-[1200px] mx-auto px-2 md:px-0">
 
-      {filteredProducts.map((item) => (
+        {filteredProducts.map((item, index) => (
+          <div key={item.id} className="contents">
 
-        <div
-          key={item.id}
-          className="group relative bg-white rounded-xl 
-          border border-gray-200 
-          shadow-sm hover:shadow-lg 
-          transition-all duration-300
-          flex flex-col h-full"
-        >
+            {index === 6 && (
+              <div className="col-span-2 md:col-span-3">
+                <MobileFeatures />
+              </div>
+            )}
 
-          {/* ❤️ Like */}
-          <button
-            onClick={() => toggleLike(item.id)}
-            className="absolute top-3 right-3 z-20 
-            bg-white p-2 rounded-full shadow 
-            hover:scale-110 transition"
-          >
-            <Heart
-              size={16}
-              className={
-                likedItems.includes(item.id)
-                  ? "fill-red-500 text-red-500"
-                  : "text-gray-400"
-              }
-            />
-          </button>
+            <div className="group relative bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full">
 
-          {/* Image */}
-          <div className="relative overflow-hidden rounded-t-xl bg-gray-50 flex items-center justify-center h-44">
+              <button
+                onClick={() => toggleLike(item.id)}
+                className="absolute top-2 right-2 z-20 bg-white/90 backdrop-blur p-1.5 rounded-full shadow"
+              >
+                <Heart
+                  size={16}
+                  className={
+                    likedItems.includes(item.id)
+                      ? "fill-red-500 text-red-500"
+                      : "text-gray-400"
+                  }
+                />
+              </button>
 
-            <img
-              src={item.image}
-              alt={item.name}
-              className="max-h-full max-w-full object-contain 
-              transition duration-500 group-hover:scale-105"
-            />
+              <div className="relative overflow-hidden rounded-t-xl bg-gray-100 h-36 md:h-48">
 
-            {/* ⭐ Rating */}
-            <div className="absolute top-3 left-3 
-            bg-white px-2 py-1 rounded-full 
-            flex items-center gap-1 shadow text-xs">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                />
 
-              <span className="text-[#bf6f32]">★</span>
+                <div className="absolute top-3 left-3 bg-white px-2 py-1 rounded-full flex items-center gap-1 shadow text-xs">
+                  <span className="text-[#bf6f32]">★</span>
+                  <span className="font-semibold text-gray-700">
+                    {ratings[item.id]}
+                  </span>
+                </div>
 
-              <span className="font-semibold text-gray-700">
-                {ratings[item.id]}
-              </span>
+              </div>
+
+              <div className="p-4 flex flex-col flex-1">
+
+                <h3 className="font-semibold text-[13px] md:text-base line-clamp-2 leading-tight">
+                  {item.name}
+                </h3>
+
+                <div className="flex items-center justify-between mt-2">
+
+                  <p className="text-sm text-gray-500">
+                    ₹ {item.price} / month
+                  </p>
+
+                  <span className="flex items-center gap-1 text-[10px] bg-yellow-50 text-yellow-700 border border-yellow-200 px-2 py-[2px] rounded-full font-semibold w-fit">
+                    <Clock size={14} />
+                    Delivery in 24 Hours
+                  </span>
+
+                </div>
+
+                <div className="flex-grow"></div>
+
+                <button
+                  onClick={() => {
+                    if (addedId === item.id) {
+                      navigate("/cart");
+                    } else {
+                      handleAddToCart(item);
+                    }
+                  }}
+                  disabled={addingId === item.id}
+                  className="flex items-center justify-center gap-1 mt-4 bg-[#bf6f32] text-white px-3 py-2 rounded-md text-xs font-semibold shadow-sm transition-all duration-300 hover:bg-[#a95c27] hover:shadow-md active:scale-95"
+                >
+
+                  {addingId === item.id ? (
+                    <>
+                      <span className="animate-spin">⏳</span>
+                      Adding ...
+                    </>
+                  ) : addedId === item.id ? (
+                    <>
+                      <ShoppingCart size={18} />
+                      View Cart
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart size={18} />
+                      Add to Cart
+                    </>
+                  )}
+
+                </button>
+
+              </div>
 
             </div>
 
           </div>
+        ))}
 
-          {/* Content */}
-          <div className="p-4 flex flex-col flex-1">
-
-            <h3 className="font-semibold text-sm md:text-base line-clamp-2 min-h-[42px]">
-              {item.name}
-            </h3>
-
-            <div className="flex items-center justify-between mt-2">
-
-              <p className="text-sm text-gray-500">
-                ₹ {item.price} / month
-              </p>
-
-              <span className="flex items-center gap-1 
-              text-xs 
-              bg-green-50 text-green-700 
-              border border-green-200
-              px-2 py-0.5 rounded-full font-semibold">
-
-                <Clock size={14} />
-               Delivery in 24 Hours
-
-              </span>
-
-            </div>
-
-            <div className="flex-grow"></div>
-
-            {/* Button */}
-            <button
-              onClick={() => {
-                if (addedId === item.id) {
-                  navigate("/cart");
-                } else {
-                  handleAddToCart(item);
-                }
-              }}
-              disabled={addingId === item.id}
-              className="flex items-center justify-center gap-2 mt-3
-              bg-[#bf6f32] text-white py-2
-              rounded-lg
-              text-sm font-semibold
-              shadow-sm
-              transition-all duration-300
-              hover:bg-[#a95c27] hover:shadow-md
-              active:scale-95
-              disabled:opacity-100 disabled:bg-[#bf6f32]"
-            >
-
-              {addingId === item.id ? (
-                <>
-                  <span className="animate-spin">⏳</span>
-                  Adding to Cart...
-                </>
-              ) : addedId === item.id ? (
-                <>
-                  <ShoppingCart size={18} />
-                  View Cart
-                </>
-              ) : (
-                <>
-                  <ShoppingCart size={18} />
-                  Add to Cart
-                </>
-              )}
-
-            </button>
-
-          </div>
-
-        </div>
-
-      ))}
-
-    </div>
-
-    {/* 🔻 End of Products Section */}
-    <div className="mt-16 mb-12 flex flex-col items-center text-center">
-
-      <div className="w-16 h-[2px] bg-gray-300 mb-4"></div>
-
-      <h2 className="text-lg md:text-xl font-semibold text-gray-700">
-        No more products to show
-      </h2>
-
-      <p className="text-sm text-gray-500 mt-2">
-        You have reached the end of our collection
-      </p>
-
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="mt-6 px-6 py-2.5 bg-[#bf6f32] text-white 
-        rounded-full text-sm font-medium 
-        hover:bg-[#a95c27] transition "
-      >
-        ↑ Back to Top
-      </button>
-
-    </div>
-
-  </>
-);
+      </div>
+    </>
+  );
 };
 
 export default ProductGrid;
-
 //! this code is applied if we dont want rating //
 
 // const ProductGrid = ({ category, priceFilter }) => {

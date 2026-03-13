@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import homieLogo from "../../Assets/Icons/favicon.png";
 import toast from "react-hot-toast";
 
+import registerimage from "../../Assets/register/r1.jpg"
 const theme = "rgb(191,111,50)";
 
 const Register = ({ switchToLogin }) => {
@@ -53,7 +54,7 @@ const Register = ({ switchToLogin }) => {
       {/* IMAGE */}
       <div className="hidden md:block md:w-1/2">
         <img
-          src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0"
+          src={registerimage}
           alt="Living room"
           className="w-full h-full object-cover"
         />

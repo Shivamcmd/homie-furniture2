@@ -11,7 +11,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-import homieLogo from "../Assets/Icons/ChatGPT Image Mar 8, 2026, 04_49_49 PM.png";
+import homieLogo from "../Assets/Icons/footer icon.png";
 
 const Footer = () => {
   const [showButton, setShowButton] = useState(false);

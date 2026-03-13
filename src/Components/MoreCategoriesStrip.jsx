@@ -26,7 +26,7 @@ const MoreCategoriesStrip = () => {
   };
 
   return (
-    <section className="py-12 md:py-20 px-4 md:px-16 bg-[#f5f3ee]">
+    <section className="py-10 md:py-20 px-4 md:px-10 bg-[#f5f3ee]">
 
       {/* Heading */}
       <h2 className="flex flex-wrap items-center justify-center gap-2 md:gap-4 mb-8 md:mb-10 text-center">
@@ -42,20 +42,21 @@ const MoreCategoriesStrip = () => {
       <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-10 md:gap-12">
 
         {/* LEFT SIDE */}
+        
 <div
   className="
-  flex gap-4 overflow-x-auto pb-2
+  flex gap-1 overflow-x-auto pb-2
   md:grid md:grid-cols-2 md:grid-rows-2
   md:gap-x-8 md:gap-y-8
   md:overflow-visible
-  ml-4 md:ml-16
+   md:ml-16
 "
 >
   {categories.map((cat) => (
     <div
       key={cat.id}
       onClick={() => handleClick(cat)}
-className="group cursor-pointer flex flex-col items-center min-w-[90px]"
+className="group cursor-pointer flex flex-col items-center min-w-[83px]"
     >
 
       {/* CARD */}
@@ -65,7 +66,7 @@ className="group cursor-pointer flex flex-col items-center min-w-[90px]"
 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28
         flex items-center justify-center
         rounded-[15px]
-        bg-gradient-to-b from-white to-[#faf6f1]
+        bg-gradient-to-b from-white
         border border-[#eadfd5]
         shadow-sm
         transition-all duration-300

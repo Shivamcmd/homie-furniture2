@@ -33,7 +33,7 @@ const rooms = [
 
 const RoomCategorySection = () => {
   return (
-    <section className="py-10 px-6 md:px-16 bg-[#F6F1EC]">
+    <section className="py-4 px-6 md:px-16 bg-[#F6F1EC]">
       
       {/* Heading */}
       <div className="text-center mb-10 md:mb-16">

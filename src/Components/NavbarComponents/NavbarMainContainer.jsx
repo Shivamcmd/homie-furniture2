@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 import AuthModal from "../AuthComponents/AuthModal";
 
 const NavbarMainContainer = () => {
+
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
@@ -30,13 +31,17 @@ const NavbarMainContainer = () => {
 
   return (
     <>
+      {/* HEADER */}
       <header className="sticky top-0 z-40 w-full bg-white border-b border-amber-700">
+
         <nav className="w-[95%] m-auto">
 
           <div className="h-[65px] flex items-center justify-between">
 
             {/* LEFT */}
             <div className="flex items-center gap-3">
+
+              {/* HAMBURGER */}
               <button
                 className="md:hidden"
                 onClick={() => setIsOpen(true)}
@@ -49,6 +54,7 @@ const NavbarMainContainer = () => {
               <div className="hidden md:block ml-6">
                 <NavMenu />
               </div>
+
             </div>
 
             {/* RIGHT */}
@@ -60,6 +66,7 @@ const NavbarMainContainer = () => {
 
               {/* CART */}
               <div className="relative">
+
                 <Link to="/cart">
                   <ShoppingCart
                     size={21}
@@ -72,6 +79,7 @@ const NavbarMainContainer = () => {
                     {totalProducts}
                   </span>
                 )}
+
               </div>
 
               {/* USER */}
@@ -90,17 +98,59 @@ const NavbarMainContainer = () => {
                   className="cursor-pointer text-gray-700 hover:text-[#8B5E3C]"
                 />
               )}
+
             </div>
+
           </div>
 
         </nav>
-      </header>
 
+      </header>
+{/* MOBILE SIDEBAR */}
+{isOpen && (
+  <div className="fixed inset-0 z-50 flex">
+
+    {/* SIDEBAR (LEFT) */}
+    <div className="w-[260px] bg-white h-full shadow-lg p-6">
+
+      {/* CLOSE */}
+      <div className="flex justify-between items-center mb-6">
+        <Logo />
+
+        <button onClick={() => setIsOpen(false)}>
+          <X size={22} />
+        </button>
+      </div>
+
+      {/* SEARCH */}
+      <div className="mb-6">
+        <SearchBar />
+      </div>
+
+      {/* MENU */}
+      <NavMenu
+        mobile={true}
+        onItemClick={() => setIsOpen(false)}
+      />
+
+    </div>
+
+    {/* OVERLAY */}
+    <div
+      className="flex-1 bg-black/40"
+      onClick={() => setIsOpen(false)}
+    ></div>
+
+  </div>
+)}
+
+      {/* AUTH MODAL */}
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
         setUser={setUser}
       />
+
     </>
   );
 };

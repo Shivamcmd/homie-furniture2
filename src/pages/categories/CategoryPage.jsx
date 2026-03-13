@@ -5,14 +5,16 @@ import FiltersSidebar from "./FiltersSidebar";
 import ProductGrid from "./ProductGrid";
 
 const CategoryPage = () => {
+
   const { name } = useParams();
-  const [priceFilter, setPriceFilter] = useState(null);
+
+  const [priceFilter, setPriceFilter] = useState([]);
+  const [ratingFilter, setRatingFilter] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [name]);
 
-  // Proper formatting for slug (office-chair → Office Chair)
   const formattedName = name
     ?.replace(/-/g, " ")
     .replace(/\b\w/g, (l) => l.toUpperCase());
@@ -20,16 +22,11 @@ const CategoryPage = () => {
   return (
     <div className="w-[95%] m-auto">
 
-      {/* 🔥 Breadcrumb */}
+      {/* Breadcrumb */}
       <div className="text-sm text-gray-500 mt-6 mb-4">
+
         <Link to="/" className="hover:text-[#8B5E3C] transition">
           Home
-        </Link>
-
-        <span className="mx-2">›</span>
-
-        <Link to="/category/furniture" className="hover:text-[#8B5E3C] transition">
-          Furniture
         </Link>
 
         <span className="mx-2">›</span>
@@ -37,6 +34,7 @@ const CategoryPage = () => {
         <span className="text-gray-800 font-medium">
           {formattedName}
         </span>
+
       </div>
 
       {/* Categories Strip */}
@@ -47,23 +45,33 @@ const CategoryPage = () => {
       {/* Layout */}
       <div className="flex flex-col lg:flex-row gap-8 mt-6">
 
+        {/* Filters */}
         <div className="w-full lg:w-[22%]">
           <div className="sticky top-[90px]">
+
             <FiltersSidebar
               priceFilter={priceFilter}
               setPriceFilter={setPriceFilter}
+              ratingFilter={ratingFilter}
+              setRatingFilter={setRatingFilter}
             />
+
           </div>
         </div>
 
+        {/* Products */}
         <div className="w-full lg:w-[78%]">
+
           <ProductGrid
             category={name}
             priceFilter={priceFilter}
+            ratingFilter={ratingFilter}
           />
+
         </div>
 
       </div>
+
     </div>
   );
 };
