@@ -5,7 +5,7 @@ const Layout = () => {
   return (
     <>
   
-      <div> 
+      <div  className="bg-white dark:bg-[#111] text-gray-800 dark:text-gray-200 min-h-screen"> 
       
         <Navbar />
         <Outlet />

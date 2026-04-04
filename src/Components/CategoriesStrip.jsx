@@ -40,14 +40,14 @@ const CategoriesStrip = () => {
   };
 
   return (
-    <section className="py-6 px-4 md:px-16 bg-[#f5f3ef]">
+<section className="py-6 px-4 md:px-16 bg-[#f5f3ef] dark:bg-[#111] transition">
 
       {/* Heading */}
       <h2 className="flex items-center justify-center gap-3 md:gap-4 mb-6 md:mb-10">
         <span className="text-2xl md:text-4xl font-bold text-[#9c6e4f]">
           Homie's
         </span>
-        <span className="text-lg md:text-2xl font-semibold text-gray-900">
+        <span className="text-lg md:text-2xl font-semibold text-gray-900 dark:text-gray-300">
           Top Categories
         </span>
         <span className="hidden md:block h-[3px] w-16 bg-[#9c6e4f] rounded-full"></span>
@@ -71,8 +71,9 @@ relative
 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28
 flex items-center justify-center
 rounded-2xl md:rounded-3xl
-bg-gradient-to-b from-white to-[#faf6f1]
-border border-[#eadfd5]
+bg-gradient-to-b from-white to-[#faf6f1] 
+dark:from-[#1c1c1c] dark:to-[#1c1c1c]
+border border-[#eadfd5] dark:border-[#2a2a2a]
 shadow-sm
 transition-all duration-300
 group-hover:-translate-y-2
@@ -116,7 +117,7 @@ mt-2
 text-[10px] sm:text-xs md:text-sm
 font-semibold
 tracking-wide
-text-gray-700
+text-gray-700 dark:text-gray-300
 transition
 group-hover:text-[#bf6f32]
 "

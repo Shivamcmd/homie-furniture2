@@ -33,7 +33,7 @@ const steps = [
 
 const HowItWorksSection = () => {
   return (
-<section className="py-10 md:py-14 px-4 md:px-10 bg-[#8b5e3b]">
+<section className="py-10 md:py-14 px-4 md:px-10 bg-[#8b5e3b] dark:bg-gradient-to-b from-[#5C3A21] to-[#3e2717]">
 
   {/* Heading */}
 
@@ -57,7 +57,7 @@ const HowItWorksSection = () => {
 
       <div
         key={step.id}
-        className="relative bg-white rounded-xl p-4 md:p-5 text-center shadow-sm group transition hover:shadow-md hover:-translate-y-1"
+        className="relative bg-white dark:bg-[#1c1c1c] rounded-xl p-4 md:p-5 text-center shadow-sm group transition hover:shadow-md hover:-translate-y-1"
       >
 
         {/* Step Number */}
@@ -76,13 +76,13 @@ const HowItWorksSection = () => {
 
         {/* Title */}
 
-        <h3 className="mt-3 text-sm md:text-base font-semibold text-gray-800">
+        <h3 className="mt-3 text-sm md:text-base font-semibold text-gray-800 dark:text-white">
           {step.title}
         </h3>
 
         {/* Description */}
 
-        <p className="text-[11px] md:text-xs text-gray-500 mt-1 leading-snug">
+        <p className="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 mt-1 leading-snug">
           {step.description}
         </p>
 

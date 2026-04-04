@@ -5,6 +5,7 @@ import Register from "./register";
 
 const AuthModal = ({ isOpen, onClose, setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
+const [prefillPhone, setPrefillPhone] = useState("");
 
   if (!isOpen) return null;
 
@@ -27,16 +28,22 @@ const AuthModal = ({ isOpen, onClose, setUser }) => {
         </button>
 
         {isLogin ? (
-          <Login
-            switchToRegister={() => setIsLogin(false)}
-            onLoginSuccess={(user) => {
-              localStorage.setItem("user", JSON.stringify(user));
-              setUser(user);
-              onClose();
-            }}
-          />
+        <Login
+  onLoginSuccess={(user) => {
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
+    onClose();
+  }}
+  openRegisterWithPhone={(phone) => {
+    setPrefillPhone(phone);
+    setIsLogin(false);
+  }}
+/>
         ) : (
-          <Register switchToLogin={() => setIsLogin(true)} />
+          <Register
+  switchToLogin={() => setIsLogin(true)}
+  phone={prefillPhone}
+/>
         )}
       </div>
     </div>

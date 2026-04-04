@@ -3,18 +3,18 @@ import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Images
-import beds from "../../Assets/categoriesstrip/Beds.png";
-import dining from "../../Assets/categoriesstrip/Diningtable.png";
-import dresser from "../../Assets/categoriesstrip/dressers.png";
-import hammock from "../../Assets/categoriesstrip/hammock.png";
-import mattresses from "../../Assets/categoriesstrip/mattresses.png";
-import officechair from "../../Assets/categoriesstrip/officechair.png";
-import officetable from "../../Assets/categoriesstrip/officetable.png";
-import Bookshelf from "../../Assets/categoriesstrip/bookshelf.png";
-import recliner from "../../Assets/categoriesstrip/Recliners.png";
-import sofa from "../../Assets/categoriesstrip/sofa.png";
-import tvunit from "../../Assets/categoriesstrip/Tvunit.png";
-import wardrobe from "../../Assets/categoriesstrip/wardrobe.png";
+import beds from "../../Assets/categoriesstrip/Beds1.png";
+import dining from "../../Assets/categoriesstrip/Diningtable1.png";
+import dresser from "../../Assets/categoriesstrip/dressers1.png";
+import hammock from "../../Assets/categoriesstrip/hammock1.png";
+import mattresses from "../../Assets/categoriesstrip/mattresses1.png";
+import officechair from "../../Assets/categoriesstrip/officechair1.png";
+import officetable from "../../Assets/categoriesstrip/officetable1.png";
+import Bookshelf from "../../Assets/categoriesstrip/bookshelf1.png";
+import recliner from "../../Assets/categoriesstrip/Recliners1.png";
+import sofa from "../../Assets/categoriesstrip/sofa1.png";
+import tvunit from "../../Assets/categoriesstrip/Tvunit1.png";
+import wardrobe from "../../Assets/categoriesstrip/wardrobe1.png";
 
 const categories = [
   { name: "Beds", image: beds },
@@ -31,7 +31,9 @@ const categories = [
   { name: "Wardrobe", image: wardrobe },
 ];
 
+
 const TopCategories = ({ activeCategory }) => {
+
   const navigate = useNavigate();
 
   const handleClick = (cat) => {
@@ -62,17 +64,17 @@ const TopCategories = ({ activeCategory }) => {
                 rounded-full transition-all duration-300
                 ${
                   isActive
-                    ? "ring-2 ring-[#8B5E3C]"
-                    : "ring-2 ring-gray-200 group-hover:ring-[#8B5E3C]"
+                    ? "ring-2 ring-[#8B5E3C]" 
+                    : "ring-2 ring-gray-200 dark:ring-[#2a2a2a] group-hover:ring-[#8B5E3C]"
                 }`}
               >
-                <div className="w-full h-full rounded-full overflow-hidden">
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
-                  />
-                </div>
+                <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-white dark:bg-[#1c1c1c]">
+  <img
+    src={cat.image}
+    alt={cat.name}
+    className="w-20 h-13 md:w-25 md:h-25 object-contain transition duration-300 group-hover:scale-110"
+  />
+</div>
 
                 {/* Active Tick */}
                 {isActive && (
@@ -99,8 +101,8 @@ const TopCategories = ({ activeCategory }) => {
                 className={`mt-2 md:mt-3 text-xs md:text-sm font-medium text-center transition
                 ${
                   isActive
-                    ? "text-[#8B5E3C]"
-                    : "text-gray-700 group-hover:text-[#8B5E3C]"
+                    ? "text-[#8B5E3C]" 
+                    : "text-gray-700 dark:text-gray-300 group-hover:text-[#8B5E3C]"
                 }`}
               >
                 {cat.name}

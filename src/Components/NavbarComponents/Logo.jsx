@@ -3,30 +3,30 @@ import logo from "../../assets/Icons/favicon.png";
 
 const Logo = () => {
   return (
-    <NavLink
-      to="/"
-      className="flex items-center "
-    >
+    <NavLink to="/" className="flex items-center">
       <div className="flex items-center ">
-<img
-        src={logo}
-        alt="Homie Logo"
-        className="w-22 h-20 object-contain  pt-2 "
-      />
 
-      <div className="flex flex-col leading-none">
-        <span className="text-2xl font-bold text-[#4B2E2B]">
-          Homie
-        </span>
-        <span className="text-[10px] text-gray-500">
-          Furniture Rentals
-        </span>
+       {/*  uncomment it , if require the logo */}
+        {/* <img
+          src={logo}
+          alt="Homie Logo"
+          className="hidden md:block w-20 h-20 object-contain "
+        /> */}
+
+        <div className="flex flex-col leading-none">
+          <span className="text-2xl font-bold text-[#9c6e4f] dark:text-white">
+            Homie
+          </span>
+          <span className="text-[10px] text-[#9c6e4f] dark:text-gray-400">
+            Furniture Rentals
+          </span>
+        </div>
+
       </div>
-      </div>
-      
     </NavLink>
   );
 };
 
 export default Logo;
+
 

@@ -14,7 +14,6 @@ const Cart = () => {
   } = useCart();
 
   const navigate = useNavigate();
-
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const totalPrice = cartItems.reduce(
@@ -24,45 +23,59 @@ const Cart = () => {
   );
 
   const handlePayment = () => {
-
     const options = {
       key: "rzp_test_SOgxbb6htrGWrX",
       amount: (totalPrice + 149) * 100,
       currency: "INR",
       name: "Homie Furniture Rentals",
-      description: "Furniture Rental Payment",
 
-      handler: function (response) {
+     handler: function (response) {
+  console.log(response);
 
-        console.log(response);
+  const user = JSON.parse(localStorage.getItem("user"));
 
-        setOrderPlaced(true);
+  if (!user) {
+    alert("Please login first");
+    return;
+  }
 
-      },
+  const existingOrders =
+    JSON.parse(localStorage.getItem("orders")) || [];
 
-      theme: {
-        color: "#bf6f32"
-      }
+  const newOrder = {
+    id: Date.now(),
+    userId: user.id, // 🔥 IMPORTANT
+    items: cartItems,
+    total: totalPrice,
+    address: {
+      address: "Demo Address", // 👈 baad me checkout se aayega
+      phone: user.phone || "9999999999"
+    },
+    date: new Date().toISOString(),
+  };
+
+  existingOrders.push(newOrder);
+
+  localStorage.setItem("orders", JSON.stringify(existingOrders));
+
+  console.log("Saved Orders:", existingOrders); // debug
+
+  setOrderPlaced(true);
+}
     };
 
     const razor = new window.Razorpay(options);
     razor.open();
-
   };
 
-  /* ORDER SUCCESS SCREEN */
+  /* ORDER SUCCESS */
 
   if (orderPlaced) {
-
     return (
-
       <div className="max-w-[900px] mx-auto px-4 py-20 flex items-center justify-center">
+        <div className="bg-white dark:bg-[#1c1c1c] border dark:border-[#2a2a2a] text-gray-800 dark:text-gray-200 rounded-2xl shadow-lg p-12 text-center">
 
-        <div className="bg-white border rounded-2xl shadow-lg p-12 text-center">
-
-          <div className="text-green-500 text-6xl mb-6">
-            ✓
-          </div>
+          <div className="text-green-500 text-6xl mb-6">✓</div>
 
           <h2 className="text-3xl font-bold mb-3">
             Order Placed Successfully
@@ -73,45 +86,40 @@ const Cart = () => {
           </p>
 
           <button
-            onClick={() => navigate("/")}
-            className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27] transition"
+            onClick={() => navigate("/") }
+            className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27]"
           >
             Continue Shopping
           </button>
 
         </div>
-
       </div>
-
     );
-
   }
 
   /* EMPTY CART */
 
   if (cartItems.length === 0) {
-
     return (
-
       <div className="max-w-[1100px] mx-auto px-4 py-10">
 
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
-          <Link to="/" className="hover:text-black">Home</Link>
+        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-8">
+          <Link to="/" className="hover:text-black dark:hover:text-white">Home</Link>
           <ChevronRight size={14} />
-          <span className="font-medium text-black">Cart</span>
+          <span className="font-medium text-black dark:text-gray-400">Cart</span>
         </div>
 
         <div className="flex flex-col items-center justify-center h-[60vh] text-center">
 
           <ShoppingCart size={70} className="text-[#bf6f32] mb-5" />
 
-          <h2 className="text-3xl font-bold text-gray-800 mb-3">
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-3">
             Your Cart is Empty
           </h2>
 
           <button
             onClick={() => navigate("/category/beds")}
-            className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27] transition"
+            className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27]"
           >
             Explore Furniture
           </button>
@@ -119,49 +127,52 @@ const Cart = () => {
         </div>
 
       </div>
-
     );
-
   }
 
   /* CART PAGE */
 
   return (
 
-    <div className="max-w-[1200px] mx-auto px-4 py-10">
+    <div className="max-w-[1200px] mx-auto px-4 py-5 mb-10
+    lg:h-[calc(100vh-120px)] 
+    bg-white dark:bg-[#111] 
+    text-gray-800 dark:text-gray-200 
+    overflow-hidden">
 
-      <div className="flex items-center gap-2 text-sm text-gray-500 mb-8">
+      {/* BREADCRUMB */}
 
-        <Link to="/" className="hover:text-black">Home</Link>
+      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
+
+        <Link to="/" className="hover:text-black dark:hover:text-white">Home</Link>
 
         <ChevronRight size={14} />
 
-        <Link to="/categories" className="hover:text-black">
+        <Link to="/categories" className="hover:text-black dark:hover:text-white">
           Furniture
         </Link>
 
         <ChevronRight size={14} />
 
-        <span className="font-medium text-black">
+        <span className="font-medium text-black dark:text-white">
           Cart
         </span>
 
       </div>
 
-      <h2 className="text-3xl font-bold mb-8">
+      <h2 className="text-3xl font-bold mb-6">
         Your Cart
       </h2>
 
-      <div className="grid lg:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 h-auto lg:h-full">
 
-        {/* LEFT SIDE */}
+        {/* LEFT SIDE (SCROLL ONLY DESKTOP) */}
 
-        <div>
+        <div className="lg:overflow-y-auto pr-2 pb-20 lg:hide-scrollbar">
 
           {cartItems.map((item) => {
 
             const months = item.months || 3;
-
             const itemTotal =
               item.price * item.quantity * (months / 3);
 
@@ -169,10 +180,10 @@ const Cart = () => {
 
               <div
                 key={item.id}
-                className="flex flex-col md:flex-row gap-6 bg-white border border-gray-200 rounded-xl p-5 shadow-sm mb-6"
+                className="flex flex-col sm:flex-row gap-4 md:gap-6 border border-gray-300 dark:border-[#2a2a2a] rounded-xl p-5 shadow-sm mb-6"
               >
 
-                <div className="w-full md:w-40 h-36 bg-gray-50 rounded-lg flex items-center justify-center overflow-hidden">
+                <div className="w-full sm:w-32 md:w-40 h-28 sm:h-32 md:h-36 bg-gray-50 dark:bg-[#222] rounded-lg flex items-center justify-center overflow-hidden">
 
                   <img
                     src={item.image}
@@ -190,7 +201,7 @@ const Cart = () => {
                       {item.name}
                     </h3>
 
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                       Category: {item.category}
                     </p>
 
@@ -209,7 +220,7 @@ const Cart = () => {
                         onChange={(e) =>
                           updateMonths(item.id, e.target.value)
                         }
-                        className="border rounded-md px-2 py-1 text-sm"
+                        className="border dark:border-gray-600 bg-transparent rounded-md px-2 py-1 text-sm"
                       >
 
                         <option value={3}>3 Months</option>
@@ -228,7 +239,7 @@ const Cart = () => {
 
                       <button
                         onClick={() => decreaseQuantity(item.id)}
-                        className="w-8 h-8 flex items-center justify-center border rounded-full"
+                        className="w-8 h-8 border rounded-full flex items-center justify-center"
                       >
                         <Minus size={14} />
                       </button>
@@ -237,7 +248,7 @@ const Cart = () => {
 
                       <button
                         onClick={() => addToCart(item)}
-                        className="w-8 h-8 flex items-center justify-center border rounded-full"
+                        className="w-8 h-8 border rounded-full flex items-center justify-center"
                       >
                         <Plus size={14} />
                       </button>
@@ -274,9 +285,9 @@ const Cart = () => {
 
         {/* RIGHT SIDE */}
 
-        <div className="space-y-6">
+        <div className="space-y-6 lg:sticky lg:top-24 h-fit">
 
-          <div className="bg-white border rounded-xl p-6 shadow-sm">
+          <div className="bg-white dark:bg-[#1c1c1c] border dark:border-[#2a2a2a] rounded-xl p-6">
 
             <h3 className="text-lg font-semibold mb-4">
               Order Summary
@@ -291,15 +302,14 @@ const Cart = () => {
 
               <div className="flex justify-between">
                 <span>Delivery Charges</span>
-                <span>₹149</span>
+                <span>₹0</span>
               </div>
 
             </div>
 
-            <div className="border-t mt-4 pt-4 flex justify-between font-semibold text-lg">
+            <div className="border-t dark:border-gray-700 mt-4 pt-4 flex justify-between font-semibold text-lg">
 
               <span>Total</span>
-
               <span>₹ {totalPrice + 0}</span>
 
             </div>
@@ -310,14 +320,14 @@ const Cart = () => {
 
             <button
               onClick={() => navigate("/category/beds")}
-              className="border border-[#bf6f32] text-[#bf6f32] px-6 py-3 rounded-full hover:bg-[#bf6f32] hover:text-white transition"
+              className="border border-[#bf6f32] text-[#bf6f32] px-6 py-3 rounded-full hover:bg-[#bf6f32] hover:text-white"
             >
               Rent More Items
             </button>
 
             <button
               onClick={() => navigate("/checkout")}
-              className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27] transition"
+              className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27]"
             >
               Proceed to Checkout
             </button>

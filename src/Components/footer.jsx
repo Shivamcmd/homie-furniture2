@@ -41,7 +41,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="bg-[#8b5e3b] text-white pt-12">
+      <footer className="bg-[#8b5e3b] dark:bg-[#1a1a1a] text-white pt-12">
 
         <div className="max-w-7xl mx-auto px-6 md:px-16 grid md:grid-cols-2 lg:grid-cols-4 gap-10">
 
@@ -56,16 +56,16 @@ const Footer = () => {
 
               <div className="flex items-center gap-2">
 
-                <img
+              {/* Uncomment kro, if require logo */}
+                {/* <img
                   src={homieLogo}
                   alt="Homie"
                   className="w-8 h-8 rounded-full"
-                />
+                /> */}
 
                 <h3 className="text-base md:text-xl font-bold">
                   HOMIE
                 </h3>
-
               </div>
 
               <ChevronDown

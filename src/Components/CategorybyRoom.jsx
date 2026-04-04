@@ -33,14 +33,14 @@ const rooms = [
 
 const RoomCategorySection = () => {
   return (
-    <section className="py-4 px-6 md:px-16 bg-[#F6F1EC]">
+    <section className="py-4 px-6 md:px-16 bg-[#F6F1EC] dark:bg-[#111]">
       
       {/* Heading */}
       <div className="text-center mb-10 md:mb-16">
-        <h2 className="text-2xl md:text-4xl font-bold text-[#4B2E2B] mb-3">
+        <h2 className="text-2xl md:text-4xl font-bold text-[#9c6f4f] mb-3">
           Browse Furniture Combos
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
+        <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm md:text-base">
           Find the perfect pieces for every corner of your home with our curated room collections.
         </p>
       </div>
@@ -73,7 +73,7 @@ const RoomCategorySection = () => {
                 alt={room.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
-              <div className="absolute top-2 left-2 bg-white p-2 rounded-lg shadow">
+              <div className="absolute top-2 left-2 bg-white dark:bg-[#1c1c1c] p-2 rounded-lg shadow">
                 {room.icon}
               </div>
             </div>
@@ -81,13 +81,13 @@ const RoomCategorySection = () => {
             {/* Content */}
             <div className="p-4 md:p-5">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm md:text-lg font-semibold text-[#4B2E2B]">
+                <h3 className="text-sm md:text-lg font-semibold text-[#4B2E2B] ">
                   {room.title}
                 </h3>
                 <ArrowUpRight size={14} className="text-gray-500" />
               </div>
 
-              <ul className="space-y-1 text-gray-600 text-[11px] md:text-sm mb-4">
+              <ul className="space-y-1 text-gray-600 dark:text-gray-400 text-[11px] md:text-sm mb-4">
                 {room.items.map((item, index) => (
                   <li key={index}>• {item}</li>
                 ))}

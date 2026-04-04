@@ -1,8 +1,12 @@
-import { useState } from "react";
-import { Menu, X, ShoppingCart, User } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { Menu, X, ShoppingCart} from "lucide-react";
+import { User, LogOut, Package, UserCircle } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-
+import toast from "react-hot-toast";
 import Logo from "./Logo";
 import NavMenu from "./NavMenu";
 import SearchBar from "./SearchBar";
@@ -12,10 +16,16 @@ const NavbarMainContainer = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [open, setOpen] = useState(false); // ✅ dropdown state
+ const dropdownRef = useRef(null);
+const navigate = useNavigate();
 
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user"))
   );
+  const role = user?.role;
+
+  const [isDark, setIsDark] = useState(false);
 
   const { cartItems } = useCart();
 
@@ -24,15 +34,75 @@ const NavbarMainContainer = () => {
     0
   );
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+const handleLogout = () => {
+  localStorage.removeItem("user");
+  setUser(null);
+  setOpen(false);
+
+  
+  setTimeout(() => {
+    navigate("/", { replace: true });
+    toast.success("Logged out successfully 👋");
+  }, 1300); 
+  
+};
+
+useEffect(() => {
+  const handleClickOutside = (e) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      setOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
+  /* LOAD DARK MODE */
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDark(false);
+    }
+  }, []);
+
+  /* LOAD USER ON REFRESH (extra safety) */
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  /* TOGGLE DARK MODE */
+  const toggleDarkMode = () => {
+    setIsDark((prev) => {
+      const newMode = !prev;
+
+      if (newMode) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+
+      return newMode;
+    });
   };
 
   return (
     <>
       {/* HEADER */}
-      <header className="sticky top-0 z-40 w-full bg-white border-b border-amber-700">
+      <header className="sticky top-0 z-40 w-full bg-white dark:bg-[#1a1a1a] border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
 
         <nav className="w-[95%] m-auto">
 
@@ -41,9 +111,8 @@ const NavbarMainContainer = () => {
             {/* LEFT */}
             <div className="flex items-center gap-3">
 
-              {/* HAMBURGER */}
               <button
-                className="md:hidden"
+                className="md:hidden text-gray-700 dark:text-gray-300"
                 onClick={() => setIsOpen(true)}
               >
                 <Menu size={22} />
@@ -60,44 +129,175 @@ const NavbarMainContainer = () => {
             {/* RIGHT */}
             <div className="flex items-center gap-4">
 
+              {/* 🔥 DARK MODE TOGGLE (DESKTOP) */}
+              <div className="hidden md:flex items-center gap-2">
+
+                <span className="text-xs text-gray-600 dark:text-gray-300">
+                  Dark Mode
+                </span>
+
+                <button
+                  onClick={toggleDarkMode}
+                  className={`w-12 h-6 flex items-center rounded-full p-1 transition duration-300 ${
+                    isDark ? "bg-[#bf6f32]" : "bg-gray-300"
+                  }`}
+                >
+                  <div
+                    className={`w-4 h-4 bg-white rounded-full shadow-md transform transition duration-300 ${
+                      isDark ? "translate-x-6" : "translate-x-0"
+                    }`}
+                  />
+                </button>
+
+              </div>
+
               <div className="hidden md:block">
                 <SearchBar />
               </div>
 
               {/* CART */}
-              <div className="relative">
+              {role !== "admin" && (
+  <div className="relative">
 
-                <Link to="/cart">
-                  <ShoppingCart
-                    size={21}
-                    className="cursor-pointer text-gray-700 hover:text-[#8B5E3C]"
-                  />
-                </Link>
+    <Link to="/cart">
+      <ShoppingCart
+        size={21}
+        className="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-[#8B5E3C] transition"
+      />
+    </Link>
 
-                {totalProducts > 0 && (
-                  <span className="absolute -top-3 -right-3 bg-[#bf6f32] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full">
-                    {totalProducts}
-                  </span>
-                )}
+    {totalProducts > 0 && (
+      <span className="absolute -top-3 -right-3 bg-[#bf6f32] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full shadow">
+        {totalProducts}
+      </span>
+    )}
 
-              </div>
+  </div>
+)}
 
               {/* USER */}
-              {user ? (
-                <div
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 cursor-pointer text-sm font-medium"
-                >
-                  <User size={18} />
-                  {user.name}
-                </div>
-              ) : (
-                <User
-                  size={21}
-                  onClick={() => setIsAuthOpen(true)}
-                  className="cursor-pointer text-gray-700 hover:text-[#8B5E3C]"
-                />
-              )}
+           <div className="relative" ref={dropdownRef}>
+
+  {user ? (
+    <>
+      {/* 🔥 USER BUTTON */}
+     <div
+  onClick={() => setOpen(!open)}
+  className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-full 
+  bg-gray-100 dark:bg-[#2a2a2a] 
+  hover:bg-gray-200 dark:hover:bg-[#333] 
+  transition shadow-sm"
+>
+  {user?.image ? (
+  <img
+    src={user.image}
+    alt="user"
+    className="w-7 h-7 rounded-full object-cover border 
+    border-gray-300 dark:border-gray-600"
+  />
+) : (
+  <User size={18} />
+)}
+  <div className="flex items-center gap-1">
+  <span className="text-sm font-medium">
+    {user.name}
+  </span>
+
+  {role === "admin" && (
+    <span className="text-[10px] bg-[#bf6f32] text-white px-2 py-[2px] rounded-full">
+      Admin
+    </span>
+  )}
+</div>
+
+  {/* 🔽 ARROW */}
+  <ChevronDown
+    size={16}
+    className={`transition-transform duration-200 ${
+      open ? "rotate-180" : ""
+    }`}
+  />
+</div>
+
+     {/* 🔥 DROPDOWN */}
+{open && (
+  <div  
+    className="absolute right-0 mt-1 w-38 bg-white dark:bg-[#1c1c1c] 
+    shadow-xl rounded-xl p-2 z-50 border-2 dark:border-[#2a2a2a]"
+  >
+
+    {role === "admin" ? (
+      <>
+        {/* ✅ ADMIN ONLY */}
+        <Link
+          to="/admin/products"
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-3 px-3 py-2 text-sm rounded-md 
+          hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+        >
+          <Package size={16} />
+          Admin Panel
+        </Link>
+      </>
+    ) : (
+      <>
+        {/* ✅ USER ONLY */}
+        <Link
+          to="/profile"
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-3 px-3 py-2 text-sm rounded-md 
+          hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+        >
+          <UserCircle size={16} />
+          Profile
+        </Link>
+
+        <Link
+          to="/orders"
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-3 px-3 py-2 text-sm rounded-md 
+          hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+        >
+          <Package size={16} />
+          Orders
+        </Link>
+
+        <Link
+          to="/wishlist"
+          onClick={() => setOpen(false)}
+          className="flex items-center gap-3 px-3 py-2 text-sm rounded-md 
+          hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+        >
+          <Heart size={16} />
+          Wishlist
+        </Link>
+      </>
+    )}
+
+    {/* COMMON */}
+    <div className="h-px bg-gray-200 dark:bg-[#333] my-1"></div>
+
+    <button
+      onClick={handleLogout}
+      className="flex items-center gap-3 w-full text-left px-3 py-2 text-sm 
+      text-red-500 rounded-md hover:bg-red-50 dark:hover:bg-[#2a2a2a] transition"
+    >
+      <LogOut size={16} />
+      Logout 
+    </button>
+
+  </div>
+)}
+    </>
+  ) : (
+    <User
+      size={21}
+      onClick={() => setIsAuthOpen(true)}
+      className="cursor-pointer text-gray-700 dark:text-gray-300 hover:text-[#8B5E3C] transition"
+    />
+  )}
+
+</div>
 
             </div>
 
@@ -106,43 +306,66 @@ const NavbarMainContainer = () => {
         </nav>
 
       </header>
-{/* MOBILE SIDEBAR */}
-{isOpen && (
-  <div className="fixed inset-0 z-50 flex">
 
-    {/* SIDEBAR (LEFT) */}
-    <div className="w-[260px] bg-white h-full shadow-lg p-6">
+      {/* MOBILE SIDEBAR */}
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex">
 
-      {/* CLOSE */}
-      <div className="flex justify-between items-center mb-6">
-        <Logo />
+          <div className="w-[260px] bg-white dark:bg-[#1c1c1c] h-full shadow-xl p-6 transition-colors duration-300">
 
-        <button onClick={() => setIsOpen(false)}>
-          <X size={22} />
-        </button>
-      </div>
+            <div className="flex justify-between items-center mb-6">
 
-      {/* SEARCH */}
-      <div className="mb-6">
-        <SearchBar />
-      </div>
+              <Logo />
 
-      {/* MENU */}
-      <NavMenu
-        mobile={true}
-        onItemClick={() => setIsOpen(false)}
-      />
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-gray-700 dark:text-gray-300"
+              >
+                <X size={22} />
+              </button>
 
-    </div>
+            </div>
 
-    {/* OVERLAY */}
-    <div
-      className="flex-1 bg-black/40"
-      onClick={() => setIsOpen(false)}
-    ></div>
+            <div className="mb-6">
+              <SearchBar />
+            </div>
 
-  </div>
-)}
+            {/* 🔥 DARK MODE TOGGLE (MOBILE) */}
+            <div className="mb-6 flex items-center justify-between">
+
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                Dark Mode
+              </span>
+
+              <button
+                onClick={toggleDarkMode}
+                className={`w-12 h-6 flex items-center rounded-full p-1 transition duration-300 ${
+                  isDark ? "bg-[#bf6f32]" : "bg-gray-300"
+                }`}
+              >
+                <div
+                  className={`w-4 h-4 bg-white rounded-full shadow-md transform transition duration-300 ${
+                    isDark ? "translate-x-6" : "translate-x-0"
+                  }`}
+                />
+              </button>
+
+            </div>
+
+            <NavMenu
+              mobile={true}
+              onItemClick={() => setIsOpen(false)}
+            />
+
+          </div>
+
+          <div
+            className="flex-1 bg-black/40"
+            onClick={() => setIsOpen(false)}
+          ></div>
+
+        </div>
+      )}
 
       {/* AUTH MODAL */}
       <AuthModal

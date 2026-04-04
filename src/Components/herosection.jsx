@@ -49,7 +49,7 @@ const slides = [
 
 const HeroSection = () => {
   return (
-    <section className="w-full py-4 md:py-10 bg-[#f5f3ef]">
+    <section className="w-full py-4 md:py-10 bg-[#f5f3ef] dark:bg-[#111]">
 
       <div className="max-w-[1435px] mx-auto px-4 md:px-10">
 
@@ -75,7 +75,7 @@ const HeroSection = () => {
               >
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/40 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/40 to-transparent dark:from-black/70 dark:via-black/50"></div>
 
                 {/* Content */}
                 <div className="relative z-10 text-white px-5 md:px-16 max-w-sm md:max-w-2xl">

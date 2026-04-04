@@ -26,17 +26,17 @@ const MoreCategoriesStrip = () => {
   };
 
   return (
-    <section className="py-10 md:py-20 px-4 md:px-10 bg-[#f5f3ee]">
+    <section className="py-10 md:py-20 px-4 md:px-10 bg-[#f5f3ee] dark:bg-[#111]">
 
       {/* Heading */}
       <h2 className="flex flex-wrap items-center justify-center gap-2 md:gap-4 mb-8 md:mb-10 text-center">
-        <span className="text-2xl md:text-4xl font-bold text-[#d23b2c]">
+        <span className="text-2xl md:text-4xl font-bold text-[#9b6e4f]">
           Explore
         </span>
-        <span className="text-lg md:text-2xl font-semibold text-gray-900">
+        <span className="text-lg md:text-2xl font-semibold text-gray-900 dark:text-gray-300">
           Some More Categories
         </span>
-        <span className="hidden md:block h-[3px] w-16 bg-[#d23b2d] rounded-full"></span>
+        <span className="hidden md:block h-[3px] w-16 bg-[#9b6e4f] rounded-full"></span>
       </h2>
 
       <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-10 md:gap-12">
@@ -60,20 +60,26 @@ className="group cursor-pointer flex flex-col items-center min-w-[83px]"
     >
 
       {/* CARD */}
-      <div
-        className="
-      relative
-w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28
-        flex items-center justify-center
-        rounded-[15px]
-        bg-gradient-to-b from-white
-        border border-[#eadfd5]
-        shadow-sm
-        transition-all duration-300
-        group-hover:-translate-y-2
-        group-hover:shadow-lg
-      "
-      >
+    <div
+  className="
+  relative
+  w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28
+  flex items-center justify-center
+  rounded-[15px]
+
+  bg-gradient-to-b 
+  from-white to-[#faf6f1]
+  dark:from-[#1c1c1c] dark:to-[#1c1c1c]
+
+  border border-[#eadfd5] dark:border-[#2a2a2a]
+
+  shadow-sm dark:shadow-none
+
+  transition-all duration-300
+  group-hover:-translate-y-2
+  group-hover:shadow-lg
+"
+>
 
         {/* IMAGE */}
         <img
@@ -95,7 +101,7 @@ w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28
         mt-2
         text-[10px] md:text-sm
         font-medium
-        text-gray-800
+        text-gray-800 dark:text-gray-300
         transition
         ${
           selectedId === cat.id
@@ -128,7 +134,7 @@ w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28
 </div>
         {/* RIGHT SIDE IMAGE */}
       <div className="relative">
-  <div className="bg-[#e8dfd6] rounded-2xl md:rounded-3xl overflow-hidden shadow-md md:shadow-lg">
+  <div className="bg-[#e8dfd6] dark:bg-[#1c1c1c] rounded-2xl md:rounded-3xl overflow-hidden shadow-md md:shadow-lg">
     <img
       src={moreCategoryImg}
       alt="Promo"

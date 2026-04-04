@@ -9,7 +9,7 @@ import FeatureStrip from "../Components/FeatureStrip";
 import MoreCategoriesStrip from "../Components/MoreCategoriesStrip";
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100  dark:bg-[#111] text-gray-800 dark:text-gray-200 min-h-screen">
 
   
         <div id="categories">

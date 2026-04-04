@@ -109,15 +109,15 @@ const textReviews = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-14 px-4 md:py-24 md:px-16 bg-[#F8F5F2]">
+    <section className="py-14 px-4 md:py-15 md:px-16 bg-[#F8F5F2] dark:bg-[#111]">
 
   {/* Header */}
   <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 md:mb-16 gap-4 md:gap-6">
     <div>
-      <h2 className="text-2xl md:text-4xl font-bold text-[#4B2E2B] mb-2 md:mb-3">
+      <h2 className="text-2xl md:text-4xl font-bold text-[#4B2E2B] dark:text-white mb-2 md:mb-3">
         Real Homes, Real Stories
       </h2>
-      <p className="text-sm md:text-base text-gray-600 max-w-md md:max-w-none">
+      <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-md md:max-w-none">
         See how our customers are living their best lives with Homie furniture.
       </p>
     </div>
@@ -172,13 +172,13 @@ const TestimonialsSection = () => {
       {[...textReviews, ...textReviews].map((item, index) => (
         <div
           key={index}
-          className="bg-white w-[260px] md:w-[340px] rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm hover:shadow-md transition duration-300 flex-shrink-0"
+          className="bg-white dark:bg-[#1c1c1c] w-[260px] md:w-[340px] rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm hover:shadow-md transition duration-300 flex-shrink-0"
         >
           <div className="flex text-[#8B5E3C] mb-3 md:mb-4 text-sm md:text-lg">
             {"★★★★★"}
           </div>
 
-          <p className="text-gray-700 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
+          <p className="text-gray-700  dark:text-gray-300 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
             "{item.quote}"
           </p>
 
@@ -188,10 +188,10 @@ const TestimonialsSection = () => {
             </div>
 
             <div>
-              <h4 className="text-xs md:text-sm font-semibold text-[#4B2E2B]">
+              <h4 className="text-xs md:text-sm font-semibold text-[#8B5E3C]">
                 {item.name}
               </h4>
-              <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wide">
+              <p className="text-[10px] md:text-xs text-gray-500 dark:text-gray-300 uppercase tracking-wide">
                 {item.location}
               </p>
             </div>

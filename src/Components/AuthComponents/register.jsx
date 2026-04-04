@@ -6,12 +6,12 @@ import toast from "react-hot-toast";
 import registerimage from "../../Assets/register/r1.jpg"
 const theme = "rgb(191,111,50)";
 
-const Register = ({ switchToLogin }) => {
+const Register = ({ switchToLogin, phone }) => {
 
   const [form,setForm] = useState({
     name:"",
     email:"",
-    password:""
+    phone: phone || ""
   });
 
   const handleChange = (e)=>{
@@ -20,36 +20,33 @@ const Register = ({ switchToLogin }) => {
 
   const handleRegister = async () => {
 
-    if (!form.name || !form.email || !form.password) {
-      toast.error("All fields required");
-      return;
-    }
+  if (!form.name || !form.email) {
+    toast.error("All fields required");
+    return;
+  }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(form.email.trim())) {
-      toast.error("Enter a valid email address");
-      return;
-    }
-
-    try {
-
-      await fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: { "Content-Type":"application/json" },
-        body: JSON.stringify(form)
-      });
-
-      toast.success("Registration successful");
-      switchToLogin();
-
-    } catch (err) {
-      toast.error("Server error");
-    }
+  const newUser = {
+    ...form,
+    role: form.phone === "8010108733" ? "admin" : "user" // 🔥 IMPORTANT
   };
 
+  await fetch("http://localhost:5000/users", {
+    method: "POST",
+    headers: { "Content-Type":"application/json" },
+    body: JSON.stringify(newUser)
+  });
+
+  toast.success("Registration successful");
+  switchToLogin();
+};
   return (
-    <div className="flex flex-col md:flex-row w-full h-full">
+<div className="flex flex-col md:flex-row w-full h-full 
+  border border-gray-200 
+  dark:border-white/10 
+  rounded-2xl 
+  overflow-hidden 
+  shadow-sm 
+  dark:shadow-[0_10px_40px_rgba(255,255,255,0.08)]">
 
       {/* IMAGE */}
       <div className="hidden md:block md:w-1/2">
@@ -61,7 +58,7 @@ const Register = ({ switchToLogin }) => {
       </div>
 
       {/* FORM */}
-      <div className="w-full md:w-1/2 bg-gray-50 flex items-center justify-center">
+      <div className="w-full md:w-1/2 bg-gray-50 dark:bg-[#111] flex items-center justify-center">
 
         <div className="w-full max-w-md p-6 md:p-10">
 
@@ -97,15 +94,12 @@ const Register = ({ switchToLogin }) => {
               style={{ "--tw-ring-color": theme }}
             />
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              className="w-full border border-gray-300 px-5 py-3 rounded-full focus:outline-none focus:ring-2"
-              style={{ "--tw-ring-color": theme }}
-            />
-
+            
+<input
+  value={form.phone}
+  readOnly
+  className="w-full border px-5 py-3 rounded-full bg-gray-100"
+/>
             <button
               onClick={handleRegister}
               className="w-full text-white py-3 rounded-full flex items-center justify-center gap-2 hover:opacity-90"
