@@ -3,10 +3,12 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 const FiltersSidebar = ({
-  priceFilter = [],
-  setPriceFilter,
-  ratingFilter,
-  setRatingFilter
+priceFilter=[],
+setPriceFilter,
+ratingFilter,
+setRatingFilter,
+sortBy,
+setSortBy
 }) => {
 
   const [openFilter,setOpenFilter] = useState(false);
@@ -55,27 +57,81 @@ const FiltersSidebar = ({
 <>
 {/* ================= MOBILE FILTER BAR ================= */}
 
-<div className="md:hidden flex gap-2 mb-0 overflow-x-auto">
+<div className="
+lg:hidden
+flex
+gap-2
+mb-4
+overflow-x-auto
+whitespace-nowrap
+scrollbar-hide
+pb-1
+">
 
 <button
 onClick={()=>setOpenFilter(true)}
-className="flex items-center gap-2 px-4 py-1 border rounded-full text-sm bg-white dark:bg-[#1c1c1c] 
-text-gray-800 dark:text-gray-200 
-border border-gray-400 dark:border-[#2a2a2a] shadow"
+className="
+flex items-center gap-2
+px-4 py-2
+rounded-full
+border
+text-sm
+bg-white dark:bg-[#1c1c1c]
+border-gray-300
+shadow
+"
 >
-<SlidersHorizontal size={13}/>
+<SlidersHorizontal size={14}/>
 Filters
 </button>
 
+
 <button
 onClick={()=>setOpenFilter(true)}
-className="flex items-center gap-1 px-4 py-1  border rounded-full text-sm bg-white dark:bg-[#1c1c1c] 
-text-gray-800 dark:text-gray-200
-border border-gray-400 dark:border-[#2a2a2a] shadow"
+className="
+flex items-center gap-2
+px-4 py-2
+rounded-full
+border
+text-sm
+bg-white dark:bg-[#1c1c1c]
+border-gray-300
+shadow
+"
 >
-<IndianRupee size={13}/>
+<IndianRupee size={14}/>
 Budget
 </button>
+
+
+<select
+value={sortBy}
+onChange={(e)=>setSortBy(e.target.value)}
+className="
+px-1 py-2
+rounded-full
+border
+text-sm
+bg-white dark:bg-[#1c1c1c]
+border-gray-300
+shadow
+outline-none
+"
+>
+
+<option value="">
+Sort By
+</option>
+
+<option value="lowToHigh">
+Price: Low → High
+</option>
+
+<option value="highToLow">
+Price: High → Low
+</option>
+
+</select>
 
 </div>
 
@@ -165,6 +221,35 @@ className="accent-[#bf6f32]"
 })}
 
 </div>
+<div>
+<h3 className="font-medium mb-3">
+Sort By
+</h3>
+
+<select
+value={sortBy}
+onChange={(e)=>setSortBy(e.target.value)}
+className="
+w-full
+p-2
+rounded-lg
+border
+bg-white dark:bg-[#2a2a2a]
+"
+>
+<option value="">Default</option>
+
+<option value="lowToHigh">
+Price: Low to High
+</option>
+
+<option value="highToLow">
+Price: High to Low
+</option>
+
+</select>
+
+</div>
 
 {/* APPLY BUTTON */}
 <button
@@ -184,9 +269,19 @@ document.body
 
 {/* ================= DESKTOP SIDEBAR ================= */}
 
-<div className="hidden md:block bg-white dark:bg-[#1c1c1c]
+<div className="
+hidden lg:block
+w-full
+max-w-full
+overflow-hidden
+bg-white dark:bg-[#1c1c1c]
 text-gray-800 dark:text-gray-200
-border border-gray-400 dark:border-[#2a2a2a] p-3  mb-7 rounded-xl shadow-sm space-y-6">
+border border-gray-300 dark:border-[#2a2a2a]
+p-4
+rounded-xl
+shadow-sm
+space-y-6
+">
 
 <h2 className="text-xl font-semibold">Filters</h2>
 
@@ -243,6 +338,44 @@ className="accent-[#bf6f32]"
 )
 
 })}
+
+</div>
+{/* Sort By */}
+
+<div>
+
+<h3 className="font-medium mb-3">
+Sort By
+</h3>
+
+<select
+value={sortBy}
+onChange={(e)=>setSortBy(e.target.value)}
+className="
+w-full
+p-2
+rounded-lg
+border
+bg-white dark:bg-[#2a2a2a]
+text-gray-800 dark:text-gray-200
+border-gray-300 dark:border-[#2a2a2a]
+outline-none
+"
+>
+
+<option value="">
+Default
+</option>
+
+<option value="lowToHigh">
+Price: Low → High
+</option>
+
+<option value="highToLow">
+Price: High → Low
+</option>
+
+</select>
 
 </div>
 

@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import toast from "react-hot-toast";
 
 const OtpAuth = ({ onLoginSuccess }) => {
   const [step, setStep] = useState(1);
   const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState(["", "", "", ""]);
   const [generatedOtp, setGeneratedOtp] = useState("");
   const [name, setName] = useState("");
+  const inputsRef = useRef([]);
 
   // SEND OTP
   const sendOtp = () => {
@@ -21,28 +22,57 @@ const OtpAuth = ({ onLoginSuccess }) => {
     setStep(2);
   };
 
+// handle change 
+const handleChange = (value, index) => {
+  if (!/^\d?$/.test(value)) return;
+
+  const newOtp = [...otp];
+  newOtp[index] = value;
+  setOtp(newOtp);
+
+  if (value && index < otp.length - 1) {
+    inputsRef.current[index + 1]?.focus();
+  }
+};
+
+//handle key dowm OTP
+const handleKeyDown = (e, index) => {
+  if (e.key === "Backspace") {
+
+    if (otp[index] === "") {
+      if (index > 0) {
+        inputsRef.current[index - 1]?.focus();
+      }
+    }
+  }
+};
+
+
   // VERIFY OTP
   const verifyOtp = async () => {
-    if (otp != generatedOtp) {
-      toast.error("Invalid OTP");
-      return;
-    }
 
-    try {
-      const res = await fetch(`http://localhost:5000/users?phone=${phone}`);
-      const data = await res.json();
+  const finalOtp = otp.join(""); 
 
-      if (data.length === 0) {
-        setStep(3);
-      } else {
-        localStorage.setItem("user", JSON.stringify(data[0]));
-        toast.success("Login success 🎉");
-        onLoginSuccess(data[0]);
-      }
-    } catch {
-      toast.error("Server error");
+  if (finalOtp != generatedOtp) {
+    toast.error("Invalid OTP");
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/users?phone=${phone}`);
+    const data = await res.json();
+
+    if (data.length === 0) {
+      setStep(3);
+    } else {
+      localStorage.setItem("user", JSON.stringify(data[0]));
+      toast.success("Login success 🎉");
+      onLoginSuccess(data[0]);
     }
-  };
+  } catch {
+    toast.error("Server error");
+  }
+};
 
   // REGISTER NEW USER
   const registerUser = async () => {
@@ -87,11 +117,20 @@ const OtpAuth = ({ onLoginSuccess }) => {
       {step === 2 && (
         <>
           <h2 className="text-lg font-semibold mb-4">Enter OTP</h2>
-          <input
-            placeholder="Enter OTP"
-            onChange={(e) => setOtp(e.target.value)}
-            className="w-full border p-3 rounded mb-3"
-          />
+   <div className="flex gap-3 justify-center">
+  {otp.map((digit, index) => (
+    <input
+      key={index}
+      ref={(el) => (inputsRef.current[index] = el)}
+      type="text"
+      maxLength="1"
+      value={digit}
+      onChange={(e) => handleChange(e.target.value, index)}
+      onKeyDown={(e) => handleKeyDown(e, index)}
+      className="w-14 h-14 text-center text-lg border rounded-full"
+    />
+  ))}
+</div>
           <button onClick={verifyOtp} className="w-full bg-green-700 text-white p-3 rounded">
             Verify OTP
           </button>

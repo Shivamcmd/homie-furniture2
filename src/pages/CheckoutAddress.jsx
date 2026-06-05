@@ -3,12 +3,13 @@ import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { Pencil, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
+
 const CheckoutAddress = () => {
 
   const navigate = useNavigate();
-  const locationRef = useRef(null);
+const location = useLocation();
 
-  // ✅ FIX: hook yaha hona chahiye
   const { cartItems, clearCart } = useCart();
 
   const [addresses, setAddresses] = useState([]);
@@ -16,12 +17,17 @@ const CheckoutAddress = () => {
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    location: ""
-  });
+ const [form, setForm] = useState({
+  name: "",
+  phone: "",
+  address: "", // House/Flat
+  area: "",
+  city: "",
+  state: "",
+  pincode: "",
+  altPhone: "",
+  addressType: "Home"
+});
 
   const totalPrice = cartItems.reduce(
     (total, item) =>
@@ -29,51 +35,144 @@ const CheckoutAddress = () => {
     0
   );
 
-  useEffect(() => {
-    const saved = localStorage.getItem("addresses");
-    if (saved) setAddresses(JSON.parse(saved));
-  }, []);
+ useEffect(() => {
+
+const user = JSON.parse(
+localStorage.getItem("user")
+);
+
+if(!user) return;
+
+fetch(
+`http://localhost:5000/addresses?userId=${user.id}`
+)
+
+.then(res=>res.json())
+
+.then(data=>{
+setAddresses(data);
+});
+
+},[]);
 
   useEffect(() => {
     localStorage.setItem("addresses", JSON.stringify(addresses));
   }, [addresses]);
 
-  useEffect(() => {
-    if (window.google && locationRef.current) {
-      const autocomplete = new window.google.maps.places.Autocomplete(
-        locationRef.current
-      );
+ useEffect(() => {
+  const user = JSON.parse(localStorage.getItem("user"));
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        setForm(prev => ({
-          ...prev,
-          location: place.formatted_address
-        }));
-      });
-    }
-  }, []);
+  if (!user) {
+    toast.error("Please login first");
+    navigate("/", { replace: true });
+  }
+}, [navigate]);
 
-  const handleAddAddress = () => {
-    if (editId) {
-      const updated = addresses.map(a =>
-        a.id === editId ? { ...a, ...form } : a
-      );
-      setAddresses(updated);
-      setEditId(null);
-    } else {
-      setAddresses([...addresses, { id: Date.now(), ...form }]);
-    }
+useEffect(() => {
+  const params = new URLSearchParams(location.search);
 
-    setShowForm(false);
-    setForm({ name: "", phone: "", address: "", location: "" });
-  };
+  if (params.get("manageAddress") === "true") {
+    setShowForm(true);
+  }
+}, [location]);
 
-  const handleDelete = (id) => {
-    const updated = addresses.filter(a => a.id !== id);
-    setAddresses(updated);
-    if (selectedAddress === id) setSelectedAddress(null);
-  };
+const handleAddAddress = async () => {
+
+const user = JSON.parse(
+localStorage.getItem("user")
+);
+
+if(editId){
+
+await fetch(
+`http://localhost:5000/addresses/${editId}`,
+{
+method:"PATCH",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(form)
+}
+);
+
+const updated = addresses.map(a =>
+a.id===editId
+? {...a,...form}
+: a
+);
+
+setAddresses(updated);
+
+setEditId(null);
+
+}
+
+else{
+
+const newAddress = {
+
+id:Date.now(),
+
+userId:user.id,
+
+...form
+
+};
+
+await fetch(
+"http://localhost:5000/addresses",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(newAddress)
+}
+);
+
+setAddresses([
+...addresses,
+newAddress
+]);
+
+}
+
+setShowForm(false);
+
+setForm({
+name:"",
+phone:"",
+address:"",
+area:"",
+city:"",
+state:"",
+pincode:"",
+altPhone:"",
+addressType:"Home"
+});
+
+};
+
+const handleDelete = async(id)=>{
+
+await fetch(
+`http://localhost:5000/addresses/${id}`,
+{
+method:"DELETE"
+}
+);
+
+const updated=addresses.filter(
+a=>a.id!==id
+);
+
+setAddresses(updated);
+
+if(selectedAddress===id){
+setSelectedAddress(null);
+}
+
+};
 
   const handleEdit = (addr) => {
     setForm(addr);
@@ -89,31 +188,52 @@ const CheckoutAddress = () => {
       currency: "INR",
       name: "Homie Furniture Rentals",
 
-      handler: function () {
+handler: async function () {
 
-        const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
-        const existingOrders =
-          JSON.parse(localStorage.getItem("orders")) || [];
+  const newOrder = {
+  orderId: "ORD-" + Date.now(), //  UNIQUE ORDER ID
+  userId: user?.id,
+   userEmail: user?.email, 
+  items: cartItems,
+  address: addresses.find(a => a.id === selectedAddress),
+  total: totalPrice + 149,
+  payment: "Razorpay",
+  status: "pending",
+  date: new Date().toISOString()
+};
 
-        const newOrder = {
-          id: Date.now(),
-          userId: user?.id,
-          items: cartItems,
-          address: addresses.find(a => a.id === selectedAddress),
-          total: totalPrice + 149,
-          date: new Date().toISOString()
-        };
+  //  1. SAVE ORDER
+  await fetch("http://localhost:5000/orders", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newOrder),
+  });
 
-        localStorage.setItem(
-          "orders",
-          JSON.stringify([newOrder, ...existingOrders])
-        );
+  //  2. UPDATE USER
+  const updatedUser = {
+    ...user,
+    orders: [...(user.orders || []), newOrder],
+    totalSpent: (user.totalSpent || 0) + newOrder.total
+  };
 
-        clearCart();
-        toast.success("Order Placed Successfully 🎉");
-        navigate("/orders");
-      }
+  await fetch(`http://localhost:5000/users/${user.id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedUser),
+  });
+
+  //  3. UPDATE LOCALSTORAGE
+  localStorage.setItem("user", JSON.stringify(updatedUser));
+
+  // ✅ ADD THIS LINE
+localStorage.setItem("reviewPrompt", "true");
+
+  clearCart();
+  toast.success("Order Placed Successfully 🎉");
+  navigate("/orders");
+}
     };
 
     const razor = new window.Razorpay(options);
@@ -184,15 +304,30 @@ const CheckoutAddress = () => {
 
                     <h3 className="font-semibold">{addr.name}</h3>
 
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      {addr.address}
-                    </p>
+  <p className="text-sm text-gray-600 dark:text-gray-400">
 
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      {addr.location}
-                    </p>
+{addr.address},
+{addr.area},
+{addr.city},
+{addr.state} - {addr.pincode}
 
-                    <p className="text-sm mt-2">{addr.phone}</p>
+</p>
+
+<p className="text-sm mt-2">
+📞 {addr.phone}
+</p>
+
+{addr.altPhone && (
+<p className="text-sm">
+Alt: {addr.altPhone}
+</p>
+)}
+
+<p className="text-xs mt-2 mr-3 bg-[#bf6f32] text-white inline-block px-2 py-1 rounded">
+
+{addr.addressType}
+
+</p>
 
                     <button
                       className="mt-4 bg-[#bf6f32] text-white px-4 py-2 rounded text-sm"
@@ -207,27 +342,23 @@ const CheckoutAddress = () => {
 
                 {/* ICONS */}
 
-                <div className="flex gap-2">
+               <div className="flex gap-4 items-start">
 
-                  <button
-                    onClick={() => handleEdit(addr)}
-                    className="p-2 md:p-4 rounded-lg bg-gray-100 dark:bg-gray-700 
-                    text-gray-700 dark:text-gray-200 
-                    hover:bg-gray-200 dark:hover:bg-gray-600 transition"
-                  >
-                    <Pencil size={16} />
-                  </button>
+  <button
+    onClick={() => handleEdit(addr)}
+    className="text-gray-600 dark:text-gray-300 hover:text-[#bf6f32] transition"
+  >
+    <Pencil size={18} />
+  </button>
 
-                  <button
-                    onClick={() => handleDelete(addr.id)}
-                    className="p-2 md:p-4 rounded-lg bg-red-100 dark:bg-red-900 
-                    text-red-600 dark:text-red-300 
-                    hover:bg-red-200 dark:hover:bg-red-800 transition"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+  <button
+    onClick={() => handleDelete(addr.id)}
+    className="text-red-500 hover:text-red-700 transition"
+  >
+    <Trash2 size={18} />
+  </button>
 
-                </div>
+</div>
 
               </div>
 
@@ -247,46 +378,140 @@ const CheckoutAddress = () => {
               {editId ? "Edit Address" : "Add New Address"}
             </h3>
 
-            <input
-              placeholder="Full Name"
-              value={form.name}
-              className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
-            />
+          <input
+  placeholder="Full Name"
+  value={form.name}
+  className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
+  onChange={(e)=>
+    setForm({...form,name:e.target.value})
+  }
+/>
 
-            <input
-              placeholder="Phone"
-              value={form.phone}
-              className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
-              onChange={(e) =>
-                setForm({ ...form, phone: e.target.value })
-              }
-            />
+{/* Phone */}
 
-            <input
-              ref={locationRef}
-              placeholder="Search Location"
-              className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
-              defaultValue={form.location}
-            />
+<input
+  placeholder="Phone Number"
+  value={form.phone}
+  maxLength={10}
+  className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
+  onChange={(e)=>{
 
-            <textarea
-              placeholder="House / Flat / Street"
-              value={form.address}
-              className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
-              onChange={(e) =>
-                setForm({ ...form, address: e.target.value })
-              }
-            />
+    const value=e.target.value.replace(/\D/g,'');
 
-            <button
-              onClick={handleAddAddress}
-              className="bg-[#bf6f32] text-white px-6 py-2 rounded"
-            >
-              {editId ? "Update Address" : "Save Address"}
-            </button>
+    setForm({
+      ...form,
+      phone:value
+    })
+
+  }}
+/>
+
+<textarea
+  placeholder="House / Flat / Street"
+  value={form.address}
+  className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
+  onChange={(e)=>
+    setForm({...form,address:e.target.value})
+  }
+/>
+
+<input
+  placeholder="Area / Village / City"
+  value={form.area}
+  className="border dark:border-gray-600 bg-transparent p-2 w-full mb-3 rounded"
+  onChange={(e)=>{
+
+    const value=e.target.value.replace(/[^a-zA-Z\s]/g,'')
+
+    setForm({
+      ...form,
+      area:value
+    })
+
+  }}
+/>
+
+<div className="grid grid-cols-2 gap-3">
+
+<input
+  placeholder="State"
+  value={form.state}
+  className="border dark:border-gray-600 bg-transparent p-2 rounded"
+  onChange={(e)=>{
+
+    const value=e.target.value.replace(/[^a-zA-Z\s]/g,'')
+
+    setForm({
+      ...form,
+      state:value
+    })
+
+  }}
+/>
+
+<input
+  placeholder="Pincode"
+  value={form.pincode}
+  maxLength={6}
+  className="border dark:border-gray-600 bg-transparent p-2 rounded"
+  onChange={(e)=>{
+
+    const value=e.target.value.replace(/\D/g,'')
+
+    setForm({
+      ...form,
+      pincode:value
+    })
+
+  }}
+/>
+
+</div>
+         
+{/* Optional Alternate */}
+
+<input
+  placeholder="Alternative Phone Number (Optional)"
+  value={form.altPhone}
+  maxLength={10}
+  className="border dark:border-gray-600 bg-transparent p-2 w-full mt-3 mb-3 rounded"
+  onChange={(e)=>{
+
+    const value=e.target.value.replace(/\D/g,'')
+
+    setForm({
+      ...form,
+      altPhone:value
+    })
+
+  }}
+/>
+
+{/* Address Type */}
+
+<select
+value={form.addressType}
+className="border dark:border-gray-600 bg-transparent p-2 w-full mb-4 rounded"
+onChange={(e)=>
+setForm({
+...form,
+addressType:e.target.value
+})
+}
+>
+
+<option>Home</option>
+<option>Work</option>
+<option>Office</option>
+
+</select>
+
+<button
+onClick={handleAddAddress}
+className="bg-[#bf6f32] text-white px-6 py-2 rounded"
+>
+{editId ? "Update Address" : "Save Address"}
+</button>
 
           </div>
 

@@ -1,4 +1,18 @@
+import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
+
+const textReviews = [
+  {
+    name: "Rahul",
+    location: "Delhi",
+    quote: "Amazing product, loved it!",
+  },
+  {
+    name: "Sneha",
+    location: "Mumbai",
+    quote: "Quality is top notch 🔥",
+  },
+];
 
 const testimonials = [
   {
@@ -38,76 +52,25 @@ const testimonials = [
   },
 ];
 
-const textReviews = [
-  {
-    id: 1,
-    name: "Didon Clinton D'Souza",
-    location: "Bangalore",
-    quote:
-      "Delivery team efficient in getting furniture set up. They were very careful with the assembly.",
-  },
-  {
-    id: 2,
-    name: "Ritesh Khanna",
-    location: "Delhi",
-    quote:
-      "Prompt response, smooth installation and removal. Highly recommended for short stays.",
-  },
-  {
-    id: 3,
-    name: "Sayyam Patni",
-    location: "Pune",
-    quote:
-      "Products true to picture and good quality. The finish on the wooden dining table is beautiful.",
-  },
-  {
-    id: 4,
-    name: "Ananya Rao",
-    location: "Chennai",
-    quote:
-      "Support team was quick to respond and the swap process was effortless.",
-  },
-  {
-    id: 5,
-    name: "Ananya Rao",
-    location: "Chennai",
-    quote:
-      "Support team was quick to respond and the swap process was effortless.",
-  },{
-    id: 6,
-    name: "Ananya Rao",
-    location: "Chennai",
-    quote:
-      "Support team was quick to respond and the swap process was effortless.",
-  },{
-    id: 7,
-    name: "Ananya Rao",
-    location: "Chennai",
-    quote:
-      "Support team was quick to respond and the swap process was effortless.",
-  },{
-    id: 8,
-    name: "Ananya Rao",
-    location: "Chennai",
-    quote:
-      "Support team was quick to respond and the swap process was effortless.",
-  },{
-    id: 9,
-    name: "Ananya Rao",
-    location: "Chennai",
-    quote:
-      "Support team was quick to respond and the swap process was effortless.",
-  },
-  {
-    id: 10,
-    name: "Ananya Rao",
-    location: "Chennai",
-    quote:
-      "Support team was quick to respond and the swap process was effortless.",
-  },
-];
-
 const TestimonialsSection = () => {
+
+  const [allReviews, setAllReviews] = useState(textReviews);
+
+   useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/userReviews");
+        const data = await res.json();
+
+        if (data.length > 0) {
+          setAllReviews([...data, ...textReviews]);
+        }
+      } catch (err) {}
+    };
+
+    fetchReviews();
+  }, []);
+  
   return (
     <section className="py-14 px-4 md:py-15 md:px-16 bg-[#F8F5F2] dark:bg-[#111]">
 
@@ -169,7 +132,7 @@ const TestimonialsSection = () => {
 
     <div className="review-marquee flex gap-4 md:gap-6">
 
-      {[...textReviews, ...textReviews].map((item, index) => (
+      {[...allReviews, ...allReviews].map((item, index) => (
         <div
           key={index}
           className="bg-white dark:bg-[#1c1c1c] w-[260px] md:w-[340px] rounded-xl md:rounded-2xl p-4 md:p-6 shadow-sm hover:shadow-md transition duration-300 flex-shrink-0"

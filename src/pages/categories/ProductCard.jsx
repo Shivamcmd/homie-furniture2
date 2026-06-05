@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const ProductCard = ({ item}) => {
+const ProductCard = ({ item, rating}) => {
   const { addToCart } = useCart();
   const { wishlistItems, addToWishlist, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
@@ -14,26 +14,41 @@ const ProductCard = ({ item}) => {
   const [loading, setLoading] = useState(false);
   const [added, setAdded] = useState(false);
 
-  const isLiked = wishlistItems.some(i => i.id === item.id);
-const handleWishlist = () => {
+ const isLiked = wishlistItems.some(i => i.productId === item.id);
+const handleWishlist = async () => {
   if (isLiked) {
     removeFromWishlist(item.id);
     toast("Removed from Wishlist 💔");
   } else {
-    addToWishlist(item);
-    toast("Added to Wishlist 🩷");
+    await addToWishlist(item);
+
+    if (JSON.parse(localStorage.getItem("user"))?.id) {
+      toast("Added to Wishlist 🩷");
+    }
   }
 };
 
-  const handleCart = () => {
-    setLoading(true);
+ const handleCart = () => {
+  setLoading(true);
 
-    setTimeout(() => {
-      addToCart(item);
-      setLoading(false);
-      setAdded(true);
-    }, 600);
-  };
+  setTimeout(() => {
+    addToCart(item);
+
+    setLoading(false);
+    setAdded(true);
+
+    toast.success( "added to cart 🛒");
+  }, 600);
+};
+
+  const handleBuyNow = () => {
+  addToCart({
+    ...item,
+    qty: 1
+  });
+
+  navigate("/checkout");
+};
 
   return (
     <div className="
@@ -45,7 +60,7 @@ shadow-[0_2px_12px_rgba(0,0,0,0.05)]
 hover:shadow-[0_6px_22px_rgba(0,0,0,0.08)]
 hover:-translate-y-[2px]
 transition-all duration-300 
-flex flex-col overflow-hidden
+flex flex-col overflow-hidden h-full min-w-0
 ">
 
       {/* ❤️ Wishlist */}
@@ -60,87 +75,163 @@ flex flex-col overflow-hidden
       </button>
 
       {/* IMAGE */}
-      <div className="relative aspect-[4/3] md:aspect-[3/2] overflow-hidden bg-gray-100 dark:bg-[#222]">
+<div className="
+relative
+aspect-[4/3]
+overflow-hidden
+shrink-0
+">
         <img
-          src={item.image}
-          alt={item.name}
-          onClick={() => navigate(`/ProductDetails/${item.id}`)}
-          className="w-full h-full object-cover cursor-pointer group-hover:scale-105 transition duration-500"
-        />
+  src={item.image}
+  alt={item.name}
+  onClick={() => navigate(`/ProductDetails/${item.id}`)}
+  className="w-full h-full object-cover cursor-pointer group-hover:scale-105 transition duration-500"
+/>
 
+<div
+  onClick={() => navigate(`/ProductDetails/${item.id}`)}
+  className="absolute inset-0 cursor-pointer z-[1]"
+></div>
+
+{item.inStock === false && (
+  <div className="absolute bottom-2 left-2 z-10 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow">
+    OUT OF STOCK
+  </div>
+)} 
         {/* Rating */}
         <div className="absolute top-2 left-2 bg-white dark:bg-[#2a2a2a] px-2 py-1 rounded-full text-xs shadow flex items-center gap-1">
           <span className="text-[#bf6f32]">★</span>
           <span className="font-semibold text-gray-700 dark:text-gray-200">
-          {
-  item.reviews?.length
-    ? (
-        item.reviews.reduce((a, r) => a + r.rating, 0) /
-        item.reviews.length
-      ).toFixed(1)
-    : "New"
-}
+{rating ? rating : "New"}
           </span>
         </div>
       </div>
 
       {/* CONTENT */}
-      <div className="p-3 md:p-4 flex flex-col flex-1">
+ <div className="p-4 flex flex-col flex-1">
 
-       <h3 className="text-[13px] sm:text-sm md:text-base font-semibold line-clamp-2 leading-tight">
-          {item.name}
-        </h3>
-   
-<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-2 gap-2">
-  {/* 💰 RENT */}
-  <div>
-  <p className="hidden sm:block text-[10px] text-gray-500">
-  Monthly rent
+{/* TITLE */}
+<h3
+onClick={() => navigate(`/ProductDetails/${item.id}`)}
+className="
+text-sm md:text-base
+font-semibold
+leading-6
+line-clamp-2
+min-h-[40px] sm:min-h-[48px]
+text-gray-900 dark:text-white
+cursor-pointer hover:text-[#bf6f32]
+transition
+"
+title={item.name}
+>
+{item.name}
+</h3>
+
+{/* PRICE + DELIVERY */}
+<div className="mt-2 mb-1">
+
+<p className="text-[11px] text-gray-500">
+Monthly rent
 </p>
 
-<p className="text-base sm:text-lg font-semibold text-gray-800 dark:text-gray-100">
-  ₹ {item.price}
-  <span className="text-xs sm:text-sm font-normal text-gray-500 ml-1">
-    /month
-  </span>
+<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-1 gap-2">
+
+<div
+onClick={() => navigate(`/ProductDetails/${item.id}`)}
+className="cursor-pointer"
+>
+<p className="text-xl font-bold text-gray-800 dark:text-white">
+₹{item.price}
+<span className="text-sm font-normal text-gray-500 ml-1">
+/month
+</span>
 </p>
-  </div>
+</div>
 
-  {/* 🚚 DELIVERY */}
- <div className="flex items-center gap-1 px-2 py-[3px] rounded-full 
-bg-[#bf6f32]/10 text-[#bf6f32] text-[9px] sm:text-[10px] font-medium 
-border border-[#bf6f32]/20 w-fit">
-
-    <FaTruck size={11} />
-  <span className="whitespace-nowrap sm:whitespace-normal">
-    Delivery in 24 hours
-  </span>
+<div
+className="
+flex items-center gap-1
+px-3 py-1
+rounded-full
+bg-[#bf6f32]/10
+text-[#bf6f32]
+text-[9px] sm:text-[10px]
+border border-[#bf6f32]/20
+"
+>
+<FaTruck size={10}/>
+<span className="whitespace-nowrap">
+24 hrs Delivery
+</span>
 </div>
 
 </div>
-        <button
-          onClick={() => (added ? navigate("/cart") : handleCart())}
-          className="mt-3 bg-[#bf6f32] text-white py-2 rounded-md 
-text-[11px] sm:text-xs md:text-sm 
-flex items-center justify-center gap-1 
-hover:bg-[#a95c27] transition"
-        >
-          {loading ? (
-            "Adding to Cart..."
-          ) : added ? (
-            <>
-              <ShoppingCart size={14} />
-              View Cart
-            </>
-          ) : (
-            <>
-              <ShoppingCart size={14} />
-              Add to Cart
-            </>
-          )}
-        </button>
 
-      </div>
+</div>
+
+{/* BUTTON */}
+<div className="mt-4 flex gap-2">
+
+  {/* Add To Cart */}
+<button
+disabled={item.inStock === false}
+onClick={() => {
+  if (item.inStock === false) return;
+
+  added
+    ? navigate("/cart")
+    : handleCart();
+}}
+className={`
+flex-1
+py-1.5
+text-[11px] sm:text-sm
+rounded-lg
+sm:py-3
+sm:text-base
+font-medium
+flex items-center justify-center gap-2
+transition
+${
+  item.inStock === false
+    ? "bg-gray-400 cursor-not-allowed text-white"
+    : "bg-[#bf6f32] hover:bg-[#a95c27] text-white"
+}
+`}
+>
+    {added ? "View Cart" : "Add To Cart"}
+  </button>
+
+  {/* Buy Now */}
+<button
+disabled={item.inStock === false}
+onClick={() => {
+  if (item.inStock === false) return;
+  handleBuyNow();
+}}
+className="
+flex-1
+py-1.5
+text-[11px] sm:text-sm
+rounded-lg
+sm:py-3
+sm:text-base
+font-medium
+border
+border-[#bf6f32]
+text-[#bf6f32]
+hover:bg-[#bf6f32]
+hover:text-white
+transition
+"
+>
+Buy Now
+</button>
+
+</div>
+
+</div>
     </div>
   );
 };

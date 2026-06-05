@@ -15,7 +15,7 @@ const Profile = () => {
 
   const localUser = JSON.parse(localStorage.getItem("user"));
 
-  // ✅ LOAD USER
+  //  LOAD USER
   useEffect(() => {
     if (!localUser?.id) return;
 
@@ -35,7 +35,7 @@ const Profile = () => {
       });
   }, []);
 
-  // ✅ AUTO SAVE (ONLY TEXT, NOT IMAGE)
+  //  AUTO SAVE (ONLY TEXT, NOT IMAGE)
   useEffect(() => {
     if (!editMode || !user?.id) return;
 
@@ -71,9 +71,9 @@ const Profile = () => {
 
     return () => clearTimeout(timeout);
 
-  }, [form.name, form.email, form.phone]); // ✅ important change
+  }, [form.name, form.email, form.phone]); //  important change
 
-  // ✅ IMAGE HANDLER (separate save, no race condition)
+  //  IMAGE HANDLER (separate save, no race condition)
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -237,7 +237,7 @@ const Profile = () => {
 
           toast.success("Profile updated 🎉");
 
-          // 🔥 refresh
+          //for  refreshing the page
           window.location.reload();
 
         } catch {

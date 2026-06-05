@@ -1,43 +1,56 @@
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import ReviewModal from "../ReviewModal";
 
 const Orders = () => {
-
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
-
   const [showConfirm, setShowConfirm] = useState(false);
-const [selectedOrderId, setSelectedOrderId] = useState(null);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
 
+  const navigate = useNavigate();
+const [showReviewModal, setShowReviewModal] = useState(false);
+
+  //  FETCH ORDERS 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const allOrders =
-      JSON.parse(localStorage.getItem("orders")) || [];
+    const fetchOrders = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
 
-    const userOrders = allOrders.filter(
-      (order) => order.userId === user?.id
-    );
+      const res = await fetch("http://localhost:5000/orders");
+      const data = await res.json();
 
-    setOrders(userOrders);
+      const userOrders = data.filter(
+        (order) => order.userId === user?.id
+      );
+
+      setOrders(userOrders);
+    };
+
+    fetchOrders();
   }, []);
 
-//⚠️ For Deleting order 
-const handleDeleteOrder = (orderId) => {
-  const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
+  useEffect(() => {
+  const shouldPrompt = localStorage.getItem("reviewPrompt");
+  if (shouldPrompt === "true") {
+    const timer = setTimeout(() => {
+      setShowReviewModal(true);
+      localStorage.removeItem("reviewPrompt");
+    }, 2000);
+    return () => clearTimeout(timer);
+  }
+}, []);
 
-  const updatedOrders = allOrders.filter(
-    (order) => order.id !== orderId
-  );
+  //  DELETE ORDER (backend)
+  const handleDeleteOrder = async (orderId) => {
+    await fetch(`http://localhost:5000/orders/${orderId}`, {
+      method: "DELETE",
+    });
 
-  localStorage.setItem("orders", JSON.stringify(updatedOrders));
+    setOrders((prev) => prev.filter((o) => o.id !== orderId));
 
-  setOrders((prev) => prev.filter((order) => order.id !== orderId));
+    toast.success("Order deleted successfully");
+  };
 
-  // ✅ TOAST MESSAGE
-  toast.success("Order deleted successfully");
-};
 
   //DELIVERY TIME (EXACT +24 HOURS)
   const getDeliveryTime = (date) => {
@@ -224,7 +237,7 @@ const handleDeleteOrder = (orderId) => {
         </div>
       ))}
 
-      {/* 🔥 BOTTOM CTA */}
+      {/*  BOTTOM CTA */}
       <div className="flex justify-center mt-10">
         <button
           onClick={() => {
@@ -237,7 +250,9 @@ const handleDeleteOrder = (orderId) => {
           Continue Shopping
         </button>
       </div>
-
+{showReviewModal && (
+  <ReviewModal onClose={() => setShowReviewModal(false)} />
+)}
     </div>
   );
 };

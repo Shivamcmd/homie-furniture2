@@ -56,7 +56,7 @@ const Footer = () => {
 
               <div className="flex items-center gap-2">
 
-              {/* Uncomment kro, if require logo */}
+              {/* Uncomment it, if require logo */}
                 {/* <img
                   src={homieLogo}
                   alt="Homie"

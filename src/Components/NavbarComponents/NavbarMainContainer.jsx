@@ -11,6 +11,7 @@ import Logo from "./Logo";
 import NavMenu from "./NavMenu";
 import SearchBar from "./SearchBar";
 import AuthModal from "../AuthComponents/AuthModal";
+import { MapPin } from "lucide-react";
 
 const NavbarMainContainer = () => {
 
@@ -61,6 +62,24 @@ useEffect(() => {
   };
 }, []);
 
+/* AUTO CLOSE MOBILE SIDEBAR ON DESKTOP */
+useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+      setIsOpen(false);
+    }
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  return () => {
+    window.removeEventListener(
+      "resize",
+      handleResize
+    );
+  };
+}, []);
+
   /* LOAD DARK MODE */
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -81,6 +100,19 @@ useEffect(() => {
       setUser(JSON.parse(savedUser));
     }
   }, []);
+
+  useEffect(() => {
+  const handleUserUpdate = () => {
+    const updatedUser = JSON.parse(localStorage.getItem("user"));
+    setUser(updatedUser);
+  };
+
+  window.addEventListener("userUpdated", handleUserUpdate);
+
+  return () => {
+    window.removeEventListener("userUpdated", handleUserUpdate);
+  };
+}, []);
 
   /* TOGGLE DARK MODE */
   const toggleDarkMode = () => {
@@ -104,32 +136,32 @@ useEffect(() => {
       {/* HEADER */}
       <header className="sticky top-0 z-40 w-full bg-white dark:bg-[#1a1a1a] border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
 
-        <nav className="w-[95%] m-auto">
+        <nav className="w-full max-w-[1400px] mx-auto px-3 sm:px-5">
 
-          <div className="h-[65px] flex items-center justify-between">
+        <div className="h-[65px] flex items-center justify-between gap-3 overflow-visible">
 
             {/* LEFT */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 min-w-0 flex-1">
 
-              <button
-                className="md:hidden text-gray-700 dark:text-gray-300"
-                onClick={() => setIsOpen(true)}
-              >
-                <Menu size={22} />
-              </button>
+          <button
+  className="xl:hidden text-gray-700 dark:text-gray-300"
+  onClick={() => setIsOpen(true)}
+>
+  <Menu size={22} />
+</button>
 
               <Logo />
-
-              <div className="hidden md:block ml-6">
-                <NavMenu />
-              </div>
+<div className="hidden xl:flex ml-4 min-w-0">
+   <NavMenu />
+</div>
 
             </div>
 
             {/* RIGHT */}
-            <div className="flex items-center gap-4">
+    {/* RIGHT */}
+<div className="flex items-center gap-2 flex-1 min-w-0 justify-end">
 
-              {/* 🔥 DARK MODE TOGGLE (DESKTOP) */}
+              {/*  DARK MODE TOGGLE (DESKTOP) */}
               <div className="hidden md:flex items-center gap-2">
 
                 <span className="text-xs text-gray-600 dark:text-gray-300">
@@ -151,9 +183,20 @@ useEffect(() => {
 
               </div>
 
-              <div className="hidden md:block">
-                <SearchBar />
-              </div>
+<div
+className="
+flex-1
+min-w-[70px]
+max-w-[110px]
+sm:min-w-[140px]
+sm:max-w-[220px]
+md:min-w-[240px]
+md:max-w-[360px]
+mx-1
+"
+>
+   <SearchBar />
+</div>
 
               {/* CART */}
               {role !== "admin" && (
@@ -180,7 +223,7 @@ useEffect(() => {
 
   {user ? (
     <>
-      {/* 🔥 USER BUTTON */}
+      {/* USER BUTTON */}
      <div
   onClick={() => setOpen(!open)}
   className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-full 
@@ -210,7 +253,7 @@ useEffect(() => {
   )}
 </div>
 
-  {/* 🔽 ARROW */}
+  {/*  ARROW */}
   <ChevronDown
     size={16}
     className={`transition-transform duration-200 ${
@@ -219,7 +262,7 @@ useEffect(() => {
   />
 </div>
 
-     {/* 🔥 DROPDOWN */}
+     {/*  DROPDOWN */}
 {open && (
   <div  
     className="absolute right-0 mt-1 w-38 bg-white dark:bg-[#1c1c1c] 
@@ -228,9 +271,9 @@ useEffect(() => {
 
     {role === "admin" ? (
       <>
-        {/* ✅ ADMIN ONLY */}
+        {/* ADMIN ONLY */}
         <Link
-          to="/admin/products"
+          to="/admin"
           onClick={() => setOpen(false)}
           className="flex items-center gap-3 px-3 py-2 text-sm rounded-md 
           hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
@@ -241,7 +284,7 @@ useEffect(() => {
       </>
     ) : (
       <>
-        {/* ✅ USER ONLY */}
+        {/*  USER ONLY */}
         <Link
           to="/profile"
           onClick={() => setOpen(false)}
@@ -271,6 +314,16 @@ useEffect(() => {
           <Heart size={16} />
           Wishlist
         </Link>
+        <Link
+  to="/checkout?manageAddress=true"
+  onClick={() => setOpen(false)}
+  className="flex items-center gap-3 px-3 py-2 text-sm rounded-md 
+  hover:bg-gray-100 dark:hover:bg-[#2a2a2a] transition"
+>
+  <MapPin size={23} />
+  Manage Addresses
+</Link>
+
       </>
     )}
 
@@ -326,11 +379,9 @@ useEffect(() => {
 
             </div>
 
-            <div className="mb-6">
-              <SearchBar />
-            </div>
+            
 
-            {/* 🔥 DARK MODE TOGGLE (MOBILE) */}
+            {/*  DARK MODE TOGGLE (MOBILE) */}
             <div className="mb-6 flex items-center justify-between">
 
               <span className="text-sm font-medium text-gray-700 dark:text-gray-200">

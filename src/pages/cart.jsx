@@ -2,7 +2,7 @@ import { useCart } from "../context/CartContext";
 import { Trash2, Plus, Minus, ChevronRight, ShoppingCart } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-
+import toast from "react-hot-toast";
 const Cart = () => {
 
   const {
@@ -44,11 +44,11 @@ const Cart = () => {
 
   const newOrder = {
     id: Date.now(),
-    userId: user.id, // 🔥 IMPORTANT
+    userId: user.id, //  IMPORTANT
     items: cartItems,
     total: totalPrice,
     address: {
-      address: "Demo Address", // 👈 baad me checkout se aayega
+      address: "Demo Address", 
       phone: user.phone || "9999999999"
     },
     date: new Date().toISOString(),
@@ -142,23 +142,22 @@ const Cart = () => {
 
       {/* BREADCRUMB */}
 
-      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
+    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6">
 
-        <Link to="/" className="hover:text-black dark:hover:text-white">Home</Link>
+  <Link
+    to="/"
+    className="hover:text-black dark:hover:text-white"
+  >
+    Home
+  </Link>
 
-        <ChevronRight size={14} />
+  <ChevronRight size={14} />
 
-        <Link to="/categories" className="hover:text-black dark:hover:text-white">
-          Furniture
-        </Link>
+  <span className="font-medium text-black dark:text-white">
+    Cart
+  </span>
 
-        <ChevronRight size={14} />
-
-        <span className="font-medium text-black dark:text-white">
-          Cart
-        </span>
-
-      </div>
+</div>
 
       <h2 className="text-3xl font-bold mb-6">
         Your Cart
@@ -183,24 +182,47 @@ const Cart = () => {
                 className="flex flex-col sm:flex-row gap-4 md:gap-6 border border-gray-300 dark:border-[#2a2a2a] rounded-xl p-5 shadow-sm mb-6"
               >
 
-                <div className="w-full sm:w-32 md:w-40 h-28 sm:h-32 md:h-36 bg-gray-50 dark:bg-[#222] rounded-lg flex items-center justify-center overflow-hidden">
+           <div
+onClick={() => navigate(`/ProductDetails/${item.id}`)}
+className="
+w-full sm:w-32 md:w-40
+h-28 sm:h-32 md:h-36
+bg-gray-50 dark:bg-[#222]
+rounded-lg
+flex items-center justify-center
+overflow-hidden
+cursor-pointer
+"
+>
 
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="max-h-full object-contain"
-                  />
+<img
+src={item.image}
+alt={item.name}
+className="
+max-h-full
+object-contain
+hover:scale-105
+transition
+"
+/>
 
-                </div>
+</div>
 
                 <div className="flex-1 flex flex-col justify-between">
 
                   <div>
 
-                    <h3 className="text-lg font-semibold">
-                      {item.name}
-                    </h3>
-
+                   <h3
+onClick={() => navigate(`/ProductDetails/${item.id}`)}
+className="
+text-lg font-semibold
+cursor-pointer
+hover:text-[#bf6f32]
+transition
+"
+>
+{item.name}
+</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                       Category: {item.category}
                     </p>
@@ -325,12 +347,28 @@ const Cart = () => {
               Rent More Items
             </button>
 
-            <button
-              onClick={() => navigate("/checkout")}
-              className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27]"
-            >
-              Proceed to Checkout
-            </button>
+           <button
+  onClick={() => {
+
+    const user = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+    if (!user) {
+      toast.error("Please Login / Sign Up first");
+
+     
+
+      return;
+    }
+
+    navigate("/checkout");
+
+  }}
+  className="bg-[#bf6f32] text-white px-8 py-3 rounded-full hover:bg-[#a95c27]"
+>
+  Proceed to Checkout
+</button>
 
           </div>
 

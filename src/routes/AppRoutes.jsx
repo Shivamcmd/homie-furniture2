@@ -12,7 +12,7 @@ import Career from "../pages/careers";
 import CheckoutAddress from "../pages/CheckoutAddress";
 import Orders from "../Components/ProfileComponents/orders";
 import Profile from "../Components/ProfileComponents/Profile";
-import Wishlist from "../Components/ProfileComponents/wishlist";
+import Wishlist from "../Components/ProfileComponents/Wishlist";
 import ProductPage from "../pages/ProductDetails";
 
 import AdminProducts from "../Components/AdminComponents/AdminProducts";
@@ -40,7 +40,6 @@ const AppRoutes = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/careers" element={<Career />} />
 <Route path="/checkout" element={<CheckoutAddress />} />
-<Route path="/cart" element={<Cart />} />
 <Route path="/orders" element={<Orders />} />
 <Route path="/profile" element={<Profile />} />
 <Route path="/wishlist" element={<Wishlist/>} />
@@ -54,10 +53,10 @@ const AppRoutes = () => {
     </AdminRoute>
   }
 >
-  <Route path="products" element={<AdminProducts />} />
-  <Route path="orders" element={<AdminOrders />} />
-  <Route path="users" element={<AdminUsers />} />
-  <Route path="profile" element={<AdminProfile />} />
+  <Route path="/admin/products" element={<AdminProducts />} />
+  <Route path="/admin/orders" element={<AdminOrders />} />
+  <Route path="/admin/users" element={<AdminUsers />} />
+  <Route path="/admin/profile" element={<AdminProfile />} />
 </Route>
 
       </Route>

@@ -37,7 +37,7 @@ const Wishlist = () => {
 
   return (
     <div key={item.id} >
-      <ProductCard item={item} />
+      <ProductCard item={item.product} />
     </div>
   );
 })}

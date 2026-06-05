@@ -6,6 +6,8 @@ import Register from "./register";
 const AuthModal = ({ isOpen, onClose, setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
 const [prefillPhone, setPrefillPhone] = useState("");
+const [registeredNow, setRegisteredNow]= useState(false);
+
 
   if (!isOpen) return null;
 
@@ -28,11 +30,13 @@ const [prefillPhone, setPrefillPhone] = useState("");
         </button>
 
         {isLogin ? (
-        <Login
+       <Login
+  registeredNow={registeredNow}
   onLoginSuccess={(user) => {
     localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
     onClose();
+    
   }}
   openRegisterWithPhone={(phone) => {
     setPrefillPhone(phone);
@@ -40,8 +44,11 @@ const [prefillPhone, setPrefillPhone] = useState("");
   }}
 />
         ) : (
-          <Register
-  switchToLogin={() => setIsLogin(true)}
+<Register
+  switchToLogin={() => {
+    setRegisteredNow(true);
+    setIsLogin(true);
+  }}
   phone={prefillPhone}
 />
         )}

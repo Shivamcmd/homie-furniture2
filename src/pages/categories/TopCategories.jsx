@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Images
+import allImg from "../../Assets/categoriesstrip/all.png";
 import beds from "../../Assets/categoriesstrip/Beds1.png";
 import dining from "../../Assets/categoriesstrip/Diningtable1.png";
 import dresser from "../../Assets/categoriesstrip/dressers1.png";
@@ -17,6 +18,7 @@ import tvunit from "../../Assets/categoriesstrip/Tvunit1.png";
 import wardrobe from "../../Assets/categoriesstrip/wardrobe1.png";
 
 const categories = [
+  { name: "All", image: allImg },
   { name: "Beds", image: beds },
   { name: "Dining Table", image: dining },
   { name: "Dressers", image: dresser },

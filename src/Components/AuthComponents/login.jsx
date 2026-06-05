@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 const theme = "rgb(191,111,50)";
 
-const Login = ({ onLoginSuccess, openRegisterWithPhone }) => {
+const Login = ({ onLoginSuccess, openRegisterWithPhone, registeredNow  }) => {
   const [step, setStep] = useState(1);
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
@@ -17,7 +17,10 @@ const [timer, setTimer] = useState(0);
 
   // SEND OTP
 const sendOtp = () => {
-  if (!phone) return toast.error("Enter phone number");
+  
+  if (!/^[6-9]\d{9}$/.test(phone)) {
+    return toast.error("Enter valid 10 digit mobile number");
+  }
 
   const fakeOtp = Math.floor(1000 + Math.random() * 9000);
   setGeneratedOtp(fakeOtp);
@@ -27,7 +30,7 @@ const sendOtp = () => {
   toast.success("OTP sent successfully");
   setStep(2);
 
-  setTimer(20); // 👈 timer start
+  setTimer(20);
 };
 
   useEffect(() => {
@@ -61,8 +64,20 @@ const sendOtp = () => {
 } else {
   // ✅ EXISTING USER → LOGIN
   localStorage.setItem("user", JSON.stringify(data[0]));
-  toast.success(`Welcome back, ${data[0].name}`);
+
+if (data[0].isBlocked) {
+  toast.error("Your account is blocked 🚫");
+  return;
+}
+
+toast.success(`Welcome back, ${data[0].name}`);
+
+// ROLE BASED FLOW
+if (data[0].role === "admin") {
+  window.location.href = "/admin"; // ya navigate("/admin")
+} else {
   onLoginSuccess(data[0]);
+}
 }
     } catch {
       toast.error("Server error");
@@ -73,7 +88,15 @@ const sendOtp = () => {
   const registerUser = async () => {
     if (!name) return toast.error("Enter name");
 
-    const newUser = { name, phone };
+    const newUser = {
+  name,
+  phone,
+  role: "user",
+  createdAt: new Date().toISOString().split("T")[0],
+  isBlocked: false,
+  orders: [],
+  totalSpent: 0
+};
 
     await fetch("http://localhost:5000/users", {
       method: "POST",
@@ -127,30 +150,45 @@ const sendOtp = () => {
 
     {/* HEADING */}
    {step === 1 && (
-  <h2 className="text-[26px] font-bold leading-snug mb-8">
-    <span style={{color:theme}}>Enter your number to</span><br/>
-    Signup or Login
-  </h2>
+<h2 className="text-[26px] font-bold leading-snug mb-8">
+  <span style={{ color: theme }}>
+    {registeredNow
+      ? "Login to continue"
+      : "Enter your number to"}
+  </span>
+
+  {!registeredNow && (
+    <>
+      <br />
+      Signup or Login
+    </>
+  )}
+</h2>
 )}
 
     {/* STEP 1 */}
     {step === 1 && (
     <div className="relative">
 
-  <input
-    type="tel"
-    placeholder="Enter your phone number"
-    onChange={(e) => setPhone(e.target.value)}
+ <input
+  type="tel"
+  placeholder="Enter your phone number"
+  value={phone}
+  onChange={(e) => {
     
-    onKeyDown={(e) => {
-      if (e.key === "Enter") {
-        sendOtp(); //   function called 
-      }
-    }}
-
-    className="w-full pl-5 pr-16 py-4 rounded-full border border-gray-600 text-lg focus:outline-none focus:ring-2"
-    style={{ "--tw-ring-color": theme }}
-  />
+    const value = e.target.value.replace(/\D/g, "");
+    if (value.length <= 10) {
+      setPhone(value);
+    }
+  }}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") {
+      sendOtp();
+    }
+  }}
+  className="w-full pl-5 pr-16 py-4 rounded-full border border-gray-600 text-lg focus:outline-none focus:ring-2"
+  style={{ "--tw-ring-color": theme }}
+/>
 
   <button
     onClick={sendOtp}

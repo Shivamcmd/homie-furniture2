@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { createContext, useContext,useEffect, useState } from "react";
 
 const CartContext = createContext();
@@ -14,29 +15,36 @@ useEffect(() => {
 
   const addToCart = (product) => {
 
-    setCartItems((prev) => {
+    if (product.inStock === false) {
+  toast.error("Product is out of stock");
+  return;
+}
 
-      const existing = prev.find((item) => item.id === product.id);
+  setCartItems((prev) => {
 
-      if (existing) {
-        return prev.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+    const existing = prev.find((item) => item.id === product.id);
+
+    const incomingQty = product.qty || 1; 
+
+    if (existing) {
+      return prev.map((item) =>
+        item.id === product.id
+          ? { ...item, quantity: item.quantity + incomingQty }
+          : item
+      );
+    }
+
+    return [
+      ...prev,
+      {
+        ...product,
+        quantity: incomingQty, 
+        months: 3
       }
+    ];
+  });
 
-      return [
-        ...prev,
-        {
-          ...product,
-          quantity: 1,
-          months: 3
-        }
-      ];
-    });
-
-  };
+};
 
   const decreaseQuantity = (id) => {
 

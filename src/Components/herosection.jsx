@@ -112,7 +112,7 @@ const HeroSection = () => {
       </div>
 
       {/* Hide Navigation On Mobile */}
-      <style jsx global>{`
+      <style>{`
         .heroSwiper .swiper-button-next,
         .heroSwiper .swiper-button-prev {
           display: none;

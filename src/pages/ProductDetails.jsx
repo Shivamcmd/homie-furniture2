@@ -1,10 +1,11 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { ArrowLeft } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaTruck, FaUndoAlt, FaTools } from "react-icons/fa";
-
+import toast from "react-hot-toast";
 import FAQSection from "../Components/FAQsection";
 
 const ProductPage = () => {
@@ -18,35 +19,28 @@ const ProductPage = () => {
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
-const [showReviewBox, setShowReviewBox] = useState(false);
-const [userRating, setUserRating] = useState(0);
-const [userComment, setUserComment] = useState("");
-const [reviews, setReviews] = useState([]);
-const [editId, setEditId] = useState(null);
+  const [showReviewBox, setShowReviewBox] = useState(false);
+  const [userRating, setUserRating] = useState(0);
+  const [userComment, setUserComment] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [editId, setEditId] = useState(null);
+const [editComment, setEditComment] = useState("");
+const [editRating, setEditRating] = useState(0);
 
+  const currentUser = JSON.parse(localStorage.getItem("user")) || {};
 
-  // 🔥 FETCH
-  useEffect(() => {
-    fetch(`http://localhost:5000/products/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        // dummy extra data add kar rahe
-        data.images = [data.image, data.image, data.image];
-        data.description =
-          "This premium product is crafted with high-quality materials, ensuring durability and comfort. Designed for modern homes with elegant styling.";
-      data.rating = data.rating || null;
+  //  FETCH
+useEffect(() => {
+  fetch(`http://localhost:5000/products/${id}`)
+    .then(res => res.json())
+    .then(data => setProduct(data));
+}, [id]);
 
-       // ✅ LOCALSTORAGE LOAD
-  const stored = localStorage.getItem(`reviews_${id}`);
-
-  data.reviews = stored
-    ? JSON.parse(stored)
-    : data.reviews || [];
-
-        setProduct(data);
-        setReviews(data.reviews);
-      });
-  }, [id]);
+useEffect(() => {
+  fetch(`http://localhost:5000/reviews?productId=${id}`)
+    .then(res => res.json())
+    .then(data => setReviews(data));
+}, [id, currentUser]);
 
   if (!product) {
     return <div className="text-center mt-20">Loading...</div>;
@@ -54,13 +48,13 @@ const [editId, setEditId] = useState(null);
 
   const nextImage = () => {
     setActiveIndex((prev) =>
-      prev === product.images.length - 1 ? 0 : prev + 1
+      prev === product.images?.length - 1 ? 0 : prev + 1
     );
   };
 
   const prevImage = () => {
     setActiveIndex((prev) =>
-      prev === 0 ? product.images.length - 1 : prev - 1
+      prev === 0 ? product.images?.length - 1 : prev - 1
     );
   };
 
@@ -88,7 +82,7 @@ const [editId, setEditId] = useState(null);
 
       <div className="grid md:grid-cols-2 gap-6">
 
-        {/* 🔥 IMAGE SLIDER */}
+        {/* IMAGE SLIDER */}
         <div>
           <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden">
 
@@ -99,7 +93,7 @@ const [editId, setEditId] = useState(null);
       transform: `translateX(-${activeIndex * 100}%)`,
     }}
   >
-    {product.images.map((img, i) => (
+    {(product.images || [product.image]).map((img, i) => (
       <img
         key={i}
         src={img}
@@ -126,13 +120,13 @@ const [editId, setEditId] = useState(null);
 
             {/* INDEX */}
             <div className="absolute bottom-2 right-2 bg-black text-white text-xs px-2 py-1 rounded">
-              {activeIndex + 1} / {product.images.length}
+              {activeIndex + 1} / {product.images?.length}
             </div>
           </div>
 
           {/* THUMBNAILS */}
           <div className="flex gap-2 mt-3">
-            {product.images.map((img, i) => (
+            {(product.images || [product.image]).map((img, i) => (
               <img
                 key={i}
                 src={img}
@@ -144,7 +138,7 @@ const [editId, setEditId] = useState(null);
           </div>
         </div>
 
-        {/* 🔥 DETAILS */}
+        {/* DETAILS */}
         <div className="flex flex-col gap-3">
 
           <h1 className="text-xl md:text-2xl font-bold">
@@ -177,7 +171,7 @@ onClick={() => {
   </span>
 </p>
 
-          <p className="text-gray-600 text-sm leading-relaxed">
+          <p className="text-gray-600 text-sm leading-relaxed dark:text-gray-400">
             {product.description}
           </p>
 
@@ -197,15 +191,38 @@ onClick={() => {
           </div>
 
           {/* BUTTON */}
-          <button
-            onClick={() => (added ? navigate("/cart") : handleAddToCart())}
-            className="mt-3 bg-[#bf6f32] text-white py-2 rounded-md"
-          >
-            {adding ? "Adding..." : added ? "View Cart" : "Add to Cart"}
-          </button>
+<button
+disabled={product.inStock === false}
+onClick={() => {
+  if (!product.inStock) return;
+  added ? navigate("/cart") : handleAddToCart();
+}}
+className={`
+mt-3 flex items-center justify-center gap-2
+text-white font-medium
+py-2.5 px-4 rounded-md
+transition-all duration-200
+${
+  product.inStock === false
+    ? "bg-gray-400 cursor-not-allowed"
+    : "bg-[#bf6f32] hover:bg-[#a95c27]"
+}
+`}
+>
+{
+  product.inStock === false
+    ? "Out of Stock"
+    : adding
+    ? "Adding..."
+    : added
+    ? "View Cart"
+    : "Add to Cart"
+}
+<ShoppingCart size={16} />
+</button>
 
 
-{/* 🔥 TRUST FEATURES */}
+{/*  TRUST FEATURES */}
 <div className="mt-6 grid grid-cols-3 gap-3">
 
   {/* DELIVERY */}
@@ -238,7 +255,7 @@ onClick={() => {
 
       </div>
 
-{/* 🔥 PRODUCT DETAILS SECTION */}
+{/*  PRODUCT DETAILS SECTION */}
 <div className="mt-14">
 
   {/* HEADER */}
@@ -251,7 +268,7 @@ onClick={() => {
     </p>
   </div>
 
-  {/* 🔥 TABS */}
+  {/*  TABS */}
   <div className="flex gap-3 mb-5 flex-wrap">
     {["description", "specs", "reviews"].map((tab) => (
       <button
@@ -273,18 +290,15 @@ onClick={() => {
     ))}
   </div>
 
-  {/* 🔥 CONTENT BOX */}
+  {/*  CONTENT BOX */}
   <div className="bg-[#fafafa] dark:bg-[#1a1a1a] p-8 mb-12 rounded-3xl shadow-sm">
 
-    {/* 📝 DESCRIPTION */}
+    {/*  DESCRIPTION */}
     {activeTab === "description" && (
       <div className="space-y-8">
 
-        <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl">
-          {product.description} This product is designed with a focus on durability,
-          modern aesthetics, and long-term usability. Whether you are upgrading your
-          living space or setting up a new home, this product blends comfort with
-          functionality seamlessly.
+        <p className="text-gray-700 text-base md:text-lg leading-relaxed max-w-3xl dark:text-gray-400">
+          {product.description} 
         </p>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -325,7 +339,7 @@ onClick={() => {
       </div>
     )}
 
-    {/* 📊 SPECS */}
+    {/*  SPECS */}
     {activeTab === "specs" && (
       <div className="grid md:grid-cols-2 gap-6">
 
@@ -343,7 +357,7 @@ onClick={() => {
 
     {/* ⭐ REVIEWS */}
     {activeTab === "reviews" && (
-      <div id="reviews-section" className="space-y-8 ">
+      <div id="reviews-section" className="space-y-4">
 
         <div>
           <h3 className="text-2xl font-semibold">
@@ -351,7 +365,7 @@ onClick={() => {
           </h3>
           <button
   onClick={() => setShowReviewBox(true)}
-  className="mt-3 bg-[#bf6f32] text-white px-4 py-2 rounded-md text-sm"
+  className="mt-4 bg-[#bf6f32] text-white px-4 py-2 rounded-md text-sm mb-4"
 >
   Write a Review
 </button>
@@ -374,29 +388,35 @@ onClick={() => {
     <div className="flex justify-between items-center">
       <p className="font-semibold">{review.user}</p>
 
-      <div className="flex gap-2 text-xs">
-        <button
-          onClick={() => setEditId(review.id)}
-          className="text-blue-500"
-        >
-          Edit
-        </button>
-
-        <button
-        onClick={() => {
-  const updated = reviews.filter(r => r.id !== review.id);
-  setReviews(updated);
-
-  localStorage.setItem(
-    `reviews_${product.id}`,
-    JSON.stringify(updated)
-  );
+    {review.userId === currentUser?.id && (
+  <div className="flex gap-2 text-xs">
+    <button
+      onClick={() => {
+  setEditId(review.id);
+  setEditComment(review.comment);
+  setEditRating(review.rating);
 }}
-          className="text-red-500"
-        >
-          Delete
-        </button>
-      </div>
+      className="text-blue-500"
+      
+    >
+      Edit
+    </button>
+
+    <button
+  onClick={() => {
+  fetch(`http://localhost:5000/reviews/${review.id}`, {
+    method: "DELETE"
+  }).then(() => {
+    setReviews(prev => prev.filter(r => r.id !== review.id));
+  });
+     toast.success("Review deleted");
+}}
+      className="text-red-500"
+    >
+      Delete
+    </button>
+  </div>
+)}
     </div>
 
     {/* RATING */}
@@ -405,27 +425,17 @@ onClick={() => {
     </p>
 
     {/* COMMENT */}
-   {editId === review.id ? (
+{editId === review.id ? (
   <div className="space-y-2">
 
-    {/* ⭐ EDIT RATING */}
+    {/* ⭐ RATING */}
     <div className="flex gap-1">
       {[1,2,3,4,5].map((star) => (
         <span
           key={star}
-          onClick={() => {
-            setReviews(prev =>
-              prev.map(r =>
-                r.id === review.id
-                  ? { ...r, rating: star }
-                  : r
-              )
-            );
-          }}
+          onClick={() => setEditRating(star)}
           className={`cursor-pointer text-lg ${
-            star <= review.rating
-              ? "text-yellow-500"
-              : "text-gray-300"
+            star <= editRating ? "text-yellow-500" : "text-gray-300"
           }`}
         >
           ★
@@ -433,27 +443,53 @@ onClick={() => {
       ))}
     </div>
 
-    {/* ✏ COMMENT */}
+    {/* COMMENT */}
     <textarea
-      defaultValue={review.comment}
-      onBlur={(e) => {
-  const updated = reviews.map(r =>
-    r.id === review.id
-      ? { ...r, comment: e.target.value }
-      : r
-  );
-
-  setReviews(updated);
-
-  localStorage.setItem(
-    `reviews_${product.id}`,
-    JSON.stringify(updated)
-  );
-
-  setEditId(null);
-}}
+      value={editComment}
+      onChange={(e) => setEditComment(e.target.value)}
       className="w-full border p-2 rounded text-sm"
     />
+
+    {/* BUTTONS */}
+    <div className="flex gap-2">
+      
+      {/* SAVE */}
+      <button
+        onClick={() => {
+          const updatedReview = {
+            ...review,
+            rating: editRating,
+            comment: editComment
+          };
+
+          fetch(`http://localhost:5000/reviews/${review.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedReview)
+          }).then(() => {
+            setReviews(prev =>
+              prev.map(r =>
+                r.id === review.id ? updatedReview : r
+              )
+            );
+            setEditId(null);
+            toast.success("Review updated");
+          });
+        }}
+        className="bg-green-500 text-white px-3 py-1 rounded text-xs"
+      >
+        Save
+      </button>
+
+      {/* CANCEL */}
+      <button
+        onClick={() => setEditId(null)}
+        className="bg-gray-300 px-3 py-1 rounded text-xs"
+      >
+        Cancel
+      </button>
+
+    </div>
 
   </div>
 ) : (
@@ -478,7 +514,7 @@ onClick={() => {
 
 </div>
 
-{/* 🔥 FAQ */}
+{/* FAQ */}
   <FAQSection/>
 
 {showReviewBox && (
@@ -517,31 +553,56 @@ onClick={() => {
         </button>
 
         <button
-          onClick={() => {
-            const newReview = {
-              id: Date.now(),
-              user: "You",
-              rating: userRating,
-              comment: userComment,
-              date: "Just now"
-            };
+onClick={() => {
 
-            const updated = [newReview, ...reviews];
+  if (!currentUser?.id) {
+    toast.error("Please, Login First");
+    return;
+  }
 
-            setReviews(updated);
+  if (!userRating || !userComment.trim()) {
+    toast.error("Rating and Review both Required");
+    return;
+  }
 
-            localStorage.setItem(
-              `reviews_${product.id}`,
-              JSON.stringify(updated)
-            );
+  const existing = reviews.find(
+    r => r.userId === currentUser.id && r.productId === product.id
+  );
 
-            setShowReviewBox(false);
-            setUserRating(0);
-            setUserComment("");
-          }}
+  if (existing) {
+    toast.error("Already reviewed");
+    return;
+  }
+
+  const newReview = {
+    userId: currentUser.id,
+    productId: product.id,
+    user: currentUser.name,
+    rating: userRating,
+    comment: userComment,
+    date: new Date().toLocaleString()
+  };
+
+  fetch("http://localhost:5000/reviews", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newReview)
+  })
+  .then(res => res.json())
+  .then(data => {
+    setReviews(prev => [data, ...prev]);
+  });
+
+  setShowReviewBox(false);
+  setUserRating(0);
+  setUserComment("");
+  toast.success("Review submitted");
+}}
+
           className="bg-[#bf6f32] text-white px-4 py-1 rounded"
         >
           Submit
+
         </button>
 
       </div>

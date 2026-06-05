@@ -18,6 +18,10 @@ const Register = ({ switchToLogin, phone }) => {
     setForm({...form,[e.target.name]:e.target.value});
   };
 
+  const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
   const handleRegister = async () => {
 
   if (!form.name || !form.email) {
@@ -25,10 +29,19 @@ const Register = ({ switchToLogin, phone }) => {
     return;
   }
 
-  const newUser = {
-    ...form,
-    role: form.phone === "8010108733" ? "admin" : "user" // 🔥 IMPORTANT
-  };
+  if (!isValidEmail(form.email)) {
+  toast.error("Enter valid email");
+  return;
+}
+const newUser = {
+  ...form,
+  role: "user",
+
+  createdAt: new Date().toISOString().split("T")[0],
+  isBlocked: false,
+  orders: [],
+  totalSpent: 0
+};
 
   await fetch("http://localhost:5000/users", {
     method: "POST",
@@ -36,7 +49,7 @@ const Register = ({ switchToLogin, phone }) => {
     body: JSON.stringify(newUser)
   });
 
-  toast.success("Registration successful");
+  toast.success("Registration successful 🎉, Please login");
   switchToLogin();
 };
   return (
@@ -87,8 +100,10 @@ const Register = ({ switchToLogin, phone }) => {
 
             <input
               type="email"
+              required
               name="email"
               placeholder="Email"
+              value={form.email}
               onChange={handleChange}
               className="w-full border border-gray-300 px-5 py-3 rounded-full focus:outline-none focus:ring-2"
               style={{ "--tw-ring-color": theme }}
