@@ -95,7 +95,10 @@ const NavMenu = ({ mobile = false, onItemClick }) => {
     >
 
       {/* CATEGORIES */}
-      <div className="relative" ref={dropdownRef}>
+<div
+  className={mobile ? "relative w-full" : "relative"}
+  ref={dropdownRef}
+>
 
         <button
           onClick={() => setOpen(!open)}
@@ -109,11 +112,20 @@ const NavMenu = ({ mobile = false, onItemClick }) => {
           />
         </button>
 
-        {open && (
-          <div className="absolute left-0 mt-3 w-56 max-h-80 overflow-y-auto
-          bg-white dark:bg-[#1c1c1c] 
-          border dark:border-gray-700 
-          rounded-lg shadow-lg z-50">
+       {open && (
+  <div
+    className={`
+      ${
+        mobile
+          ? "mt-3 w-full"
+          : "absolute left-0 mt-3 w-56"
+      }
+      max-h-80 overflow-y-auto
+      bg-white dark:bg-[#1c1c1c]
+      border dark:border-gray-700
+      rounded-lg shadow-lg z-50
+    `}
+  >
 
             {categories.map((cat) => (
               <button
