@@ -19,7 +19,7 @@ import AdminProducts from "../Components/AdminComponents/AdminProducts";
 import AdminUsers from "../Components/AdminComponents/AdminUsers";
 import AdminOrders from "../Components/AdminComponents/AdminOrders";
 import AdminProfile from "../Components/AdminComponents/AdminProfile";
-import AdminDashboard from "../Components/AdminComponents/Admindashboard";
+import AdminDashboard from "../Components/AdminComponents/AdminDashboard";
 
 
 
