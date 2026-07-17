@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // Images
-import allImg from "../../Assets/categoriesstrip/all.png";
+import allImg from "../../Assets/categoriesstrip/All.png";
 import beds from "../../Assets/categoriesstrip/Beds1.png";
 import dining from "../../Assets/categoriesstrip/Diningtable1.png";
 import dresser from "../../Assets/categoriesstrip/dressers1.png";
