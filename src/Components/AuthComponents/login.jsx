@@ -54,8 +54,23 @@ const sendOtp = () => {
 
 
     try {
-      const res = await fetch(`https://homie-furniture2-2.onrender.com/users?phone=${phone}`);
-      const data = await res.json();
+const res = await fetch(
+  "https://homie-furniture2-2.onrender.com/users"
+);
+
+const users = await res.json();
+
+const data = users.filter(
+  (u) => String(u.phone).trim() === String(phone).trim()
+);
+
+console.log(data);
+
+console.log("📱 Phone Entered:", phone);
+console.log("📦 API Response:", data);
+console.log("📏 Response Length:", data.length);
+console.log("👤 First User:", data[0]);
+console.log("💾 LocalStorage Before:", localStorage.getItem("user"));
 
       if (data.length === 0) {
   // ✅ NEW USER → REGISTER PAGE KHOL
