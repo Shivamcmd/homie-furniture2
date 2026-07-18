@@ -42,8 +42,8 @@ sortBy
 
  useEffect(() => {
   Promise.all([
-    fetch("http://localhost:5000/products").then(res => res.json()),
-    fetch("http://localhost:5000/reviews").then(res => res.json())
+    fetch("https://homie-furniture2-2.onrender.com/products").then(res => res.json()),
+    fetch("https://homie-furniture2-2.onrender.com/reviews").then(res => res.json())
   ])
   .then(([productsData, reviewsData]) => {
 

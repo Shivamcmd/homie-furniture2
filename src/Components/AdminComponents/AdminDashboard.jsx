@@ -61,8 +61,8 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       const [ordersRes, usersRes] = await Promise.all([
-        fetch("http://localhost:5000/orders"),
-        fetch("http://localhost:5000/users"),
+        fetch("https://homie-furniture2-2.onrender.com/orders"),
+        fetch("https://homie-furniture2-2.onrender.com/users"),
       ]);
       const ordersData = await ordersRes.json();
       const usersData = await usersRes.json();
@@ -83,9 +83,9 @@ const cleanOrders = ordersData.filter(
 
   useEffect(() => {
     const prepareBarData = async () => {
-      const ordersRes = await fetch("http://localhost:5000/orders");
+      const ordersRes = await fetch("https://homie-furniture2-2.onrender.com/orders");
       const ordersData = await ordersRes.json();
-      const usersRes = await fetch("http://localhost:5000/users");
+      const usersRes = await fetch("https://homie-furniture2-2.onrender.com/users");
       const usersData = await usersRes.json();
       const customers = usersData.filter(u => u.role !== "admin");
       const customerIds = customers.map(u => u.id);
@@ -108,7 +108,7 @@ const cleanOrders = ordersData.filter(
 
   useEffect(() => {
     const preparePieData = async () => {
-      const res = await fetch("http://localhost:5000/products");
+      const res = await fetch("https://homie-furniture2-2.onrender.com/products");
       const data = await res.json();
       const categoryCount = {};
       data.forEach((product) => {

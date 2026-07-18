@@ -16,7 +16,7 @@ const [showReviewModal, setShowReviewModal] = useState(false);
     const fetchOrders = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
 
-      const res = await fetch("http://localhost:5000/orders");
+      const res = await fetch("https://homie-furniture2-2.onrender.com/orders");
       const data = await res.json();
 
       const userOrders = data.filter(
@@ -42,7 +42,7 @@ const [showReviewModal, setShowReviewModal] = useState(false);
 
   //  DELETE ORDER (backend)
   const handleDeleteOrder = async (orderId) => {
-    await fetch(`http://localhost:5000/orders/${orderId}`, {
+    await fetch(`https://homie-furniture2-2.onrender.com/orders/${orderId}`, {
       method: "DELETE",
     });
 

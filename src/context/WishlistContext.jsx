@@ -19,7 +19,7 @@ useEffect(() => {
  useEffect(() => {
   if (!user?.id) return;
 
-  fetch(`http://localhost:5000/wishlist?userId=${user.id}`)
+  fetch(`https://homie-furniture2-2.onrender.com/wishlist?userId=${user.id}`)
     .then(res => res.json())
     .then(data => setWishlistItems(data));
 }, [user]);
@@ -45,7 +45,7 @@ const addToWishlist = async (item) => {
   };
 
   const res = await fetch(
-    "http://localhost:5000/wishlist",
+    "https://homie-furniture2-2.onrender.com/wishlist",
     {
       method: "POST",
       headers: {
@@ -70,7 +70,7 @@ const addToWishlist = async (item) => {
   );
     if (!item) return;
 
-    await fetch(`http://localhost:5000/wishlist/${item.id}`, {
+    await fetch(`https://homie-furniture2-2.onrender.com/wishlist/${item.id}`, {
       method: "DELETE"
     });
 

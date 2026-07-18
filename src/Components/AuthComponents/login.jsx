@@ -54,7 +54,7 @@ const sendOtp = () => {
 
 
     try {
-      const res = await fetch(`http://localhost:5000/users?phone=${phone}`);
+      const res = await fetch(`https://homie-furniture2-2.onrender.com/users?phone=${phone}`);
       const data = await res.json();
 
       if (data.length === 0) {
@@ -98,7 +98,7 @@ if (data[0].role === "admin") {
   totalSpent: 0
 };
 
-    await fetch("http://localhost:5000/users", {
+    await fetch("https://homie-furniture2-2.onrender.com/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newUser),

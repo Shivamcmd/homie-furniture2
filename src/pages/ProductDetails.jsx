@@ -31,13 +31,13 @@ const [editRating, setEditRating] = useState(0);
 
   //  FETCH
 useEffect(() => {
-  fetch(`http://localhost:5000/products/${id}`)
+  fetch(`https://homie-furniture2-2.onrender.com/products/${id}`)
     .then(res => res.json())
     .then(data => setProduct(data));
 }, [id]);
 
 useEffect(() => {
-  fetch(`http://localhost:5000/reviews?productId=${id}`)
+  fetch(`https://homie-furniture2-2.onrender.com/reviews?productId=${id}`)
     .then(res => res.json())
     .then(data => setReviews(data));
 }, [id, currentUser]);
@@ -404,7 +404,7 @@ ${
 
     <button
   onClick={() => {
-  fetch(`http://localhost:5000/reviews/${review.id}`, {
+  fetch(`https://homie-furniture2-2.onrender.com/reviews/${review.id}`, {
     method: "DELETE"
   }).then(() => {
     setReviews(prev => prev.filter(r => r.id !== review.id));
@@ -462,7 +462,7 @@ ${
             comment: editComment
           };
 
-          fetch(`http://localhost:5000/reviews/${review.id}`, {
+          fetch(`https://homie-furniture2-2.onrender.com/reviews/${review.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedReview)
@@ -583,7 +583,7 @@ onClick={() => {
     date: new Date().toLocaleString()
   };
 
-  fetch("http://localhost:5000/reviews", {
+  fetch("https://homie-furniture2-2.onrender.com/reviews", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newReview)

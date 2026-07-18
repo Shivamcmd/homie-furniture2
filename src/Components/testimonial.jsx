@@ -59,7 +59,7 @@ const TestimonialsSection = () => {
    useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch("http://localhost:5000/userReviews");
+        const res = await fetch("https://homie-furniture2-2.onrender.com/userReviews");
         const data = await res.json();
 
         if (data.length > 0) {

@@ -1,9 +1,9 @@
 export const getDashboardStats = async () => {
   try {
     const [usersRes, ordersRes, productsRes] = await Promise.all([
-      fetch("http://localhost:5000/users"),
-      fetch("http://localhost:5000/orders"),
-      fetch("http://localhost:5000/products"),
+      fetch("https://homie-furniture2-2.onrender.com/users"),
+      fetch("https://homie-furniture2-2.onrender.com/orders"),
+      fetch("https://homie-furniture2-2.onrender.com/products"),
     ]);
 
     const users = await usersRes.json();

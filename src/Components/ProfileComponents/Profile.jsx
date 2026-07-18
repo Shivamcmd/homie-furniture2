@@ -19,7 +19,7 @@ const Profile = () => {
   useEffect(() => {
     if (!localUser?.id) return;
 
-    fetch(`http://localhost:5000/users/${localUser.id}`)
+    fetch(`https://homie-furniture2-2.onrender.com/users/${localUser.id}`)
       .then(res => res.json())
       .then(data => {
         setUser(data);
@@ -44,7 +44,7 @@ const Profile = () => {
         setIsSaving(true);
 
         const res = await fetch(
-          `http://localhost:5000/users/${user.id}`,
+          `https://homie-furniture2-2.onrender.com/users/${user.id}`,
           {
             method: "PATCH", // ✅ changed from PUT
             headers: { "Content-Type": "application/json" },
@@ -96,7 +96,7 @@ const Profile = () => {
         setIsSaving(true);
 
         const res = await fetch(
-          `http://localhost:5000/users/${user.id}`,
+          `https://homie-furniture2-2.onrender.com/users/${user.id}`,
           {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
@@ -218,7 +218,7 @@ const Profile = () => {
           setIsSaving(true);
 
           const res = await fetch(
-            `http://localhost:5000/users/${user.id}`,
+            `https://homie-furniture2-2.onrender.com/users/${user.id}`,
             {
               method: "PATCH",
               headers: { "Content-Type": "application/json" },
