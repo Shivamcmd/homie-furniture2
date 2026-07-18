@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
 
+import piano from "../Assets/testimonials/piano.png";
+import customer1 from "../Assets/testimonials/Gemini_Generated_Image_6800zc6800zc6800.png";
+import customer2 from "../Assets/testimonials/Gemini_Generated_Image_a8r0cfa8r0cfa8r0.png";
+import customer3 from "../Assets/testimonials/Gemini_Generated_Image_rmkxwrrmkxwrrmkx.png";
+import customer4 from "../Assets/testimonials/ror.png";
+
 const textReviews = [
   {
     name: "Rahul",
@@ -20,35 +26,35 @@ const testimonials = [
     type: "Video Story",
     name: "Sarah Jenkins",
     location: "Mumbai",
-    image: "/src/Assets/testimonials/piano.png",
+    image: piano,
   },
   {
     id: 2,
     type: "Customer Story",
     name: "Aditya Verma",
     location: "Bangalore",
-    image: "/src/Assets/testimonials/Gemini_Generated_Image_6800zc6800zc6800.png",
+    image: customer1,
   },
   {
     id: 3,
     type: "Video Story",
     name: "Priya Sharma",
     location: "Bhopal",
-    image: "/src/Assets/testimonials/Gemini_Generated_Image_a8r0cfa8r0cfa8r0.png",
+    image: customer2,
   },
   {
     id: 4,
     type: "Video Story",
     name: "Dheeraj Dhindsa",
     location: "Hyderabad",
-    image: "/src/Assets/testimonials/Gemini_Generated_Image_rmkxwrrmkxwrrmkx.png",
+    image: customer3,
   },
   {
     id: 5,
     type: "Video Story",
     name: "Vikrant Mehta",
     location: "England",
-    image: "/src/Assets/testimonials/ror.png",
+    image: customer4,
   },
 ];
 
