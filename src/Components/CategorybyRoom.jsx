@@ -1,35 +1,41 @@
 import { ArrowUpRight, Sofa, BedDouble, Briefcase, Utensils } from "lucide-react";
 
+import livingRoom from "../Assets/categorybyroom/pexels-pixabay-276528.jpg";
+import bedroom from "../Assets/categorybyroom/pexels-introspectivedsgn-9582660.jpg";
+import office from "../Assets/categorybyroom/pexels-mateusz-haberny-806274365-19238352.jpg";
+import dining from "../Assets/categorybyroom/pexels-curtis-adams-1694007-3773583.jpg";
+
+
 const rooms = [
-  {
-    id: 1,
-    title: "Living Room",
-    icon: <Sofa size={16} />,
-    image: "/src/Assets/categorybyroom/pexels-pixabay-276528.jpg",
-    items: ["Sectional Sofas", "TV Units", "Coffee Tables", "Recliners"],
-  },
-  {
-    id: 2,
-    title: "Bedroom",
-    icon: <BedDouble size={16} />,
-    image: "/src/Assets/categorybyroom/pexels-introspectivedsgn-9582660.jpg",
-    items: ["King Size Beds", "Queen Size Beds", "Wardrobes", "Side Tables"],
-  },
-  {
-    id: 3,
-    title: "Home Office",
-    icon: <Briefcase size={16} />,
-    image: "/src/Assets/categorybyroom/pexels-mateusz-haberny-806274365-19238352.jpg",
-    items: ["Study Tables", "Office Chairs", "Bookshelves", "Workstations"],
-  },
-  {
-    id: 4,
-    title: "Dining & More",
-    icon: <Utensils size={16} />,
-    image: "/src/Assets/categorybyroom/pexels-curtis-adams-1694007-3773583.jpg",
-    items: ["4 Seater Sets", "6 Seater Sets", "Bar Units", "Sideboards"],
-  },
-];
+{
+  id: 1,
+  title: "Living Room",
+  icon: <Sofa size={16} />,
+  image: livingRoom,
+  items: ["Sectional Sofas", "TV Units", "Coffee Tables", "Recliners"],
+},
+{
+  id: 2,
+  title: "Bedroom",
+  icon: <BedDouble size={16} />,
+  image: bedroom,
+  items: ["King Size Beds", "Queen Size Beds", "Wardrobes", "Side Tables"],
+},
+{
+  id: 3,
+  title: "Home Office",
+  icon: <Briefcase size={16} />,
+  image: office,
+  items: ["Study Tables", "Office Chairs", "Bookshelves", "Workstations"],
+},
+{
+  id: 4,
+  title: "Dining & More",
+  icon: <Utensils size={16} />,
+  image: dining,
+  items: ["4 Seater Sets", "6 Seater Sets", "Bar Units", "Sideboards"],
+},
+]
 
 const RoomCategorySection = () => {
   return (
